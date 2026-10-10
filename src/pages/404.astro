@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found (404) | Cover & Capital India"
+  description="The requested page could not be found. Explore our research articles, insurance calculators, or return to the Cover & Capital India homepage."
+>
+  <div class="max-w-3xl mx-auto px-4 py-20 text-center space-y-6">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#FEF2F2] text-[#991B1B] text-2xl font-bold font-serif mb-2">
+      404
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A]">
+      Page Not Found
+    </h1>
+    <p class="text-base text-[#475569] max-w-md mx-auto leading-relaxed">
+      The policy document, guide, or calculator URL you requested may have moved or been reorganized.
+    </p>
+
+    <div class="pt-4 flex flex-wrap justify-center gap-3">
+      <a
+        href="/cover-and-capital-india/"
+        class="px-5 py-2.5 bg-[#0D5C46] text-white rounded-lg text-sm font-semibold hover:bg-[#083E2F] transition-colors"
+      >
+        Return to Home &rarr;
+      </a>
+      <a
+        href="/cover-and-capital-india/search/"
+        class="px-5 py-2.5 bg-white border border-[#CBD5E1] text-[#0F172A] rounded-lg text-sm font-semibold hover:border-[#0D5C46] transition-colors"
+      >
+        Search Entire Library
+      </a>
+    </div>
+
+    <!-- Recommended links -->
+    <div class="pt-12 border-t border-[#E5E3D8] text-xs text-[#64748B] space-y-2">
+      <div class="font-semibold text-[#0F172A] uppercase tracking-wider">Helpful Starting Points:</div>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/cover-and-capital-india/start-here/" class="hover:text-[#0D5C46] underline">Start Here Guide</a>
+        <a href="/cover-and-capital-india/insurance/term/" class="hover:text-[#0D5C46] underline">Term Insurance Hub</a>
+        <a href="/cover-and-capital-india/taxation/" class="hover:text-[#0D5C46] underline">Income-tax Act 2025</a>
+        <a href="/cover-and-capital-india/calculators/" class="hover:text-[#0D5C46] underline">Calculators Hub</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

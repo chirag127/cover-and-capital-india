@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const taxArticles = await getCollection('articles', ({ data }) => !data.draft && (data.category === 'taxation' || data.tags.includes('taxation')));
+---
+
+<BaseLayout
+  title="Indian Insurance Taxation (FY 2026–27) | Income-tax Act, 2025"
+  description="Authoritative research on life insurance taxation in India. Income-tax Act 2025, Schedule II(2), the ₹5 Lakh non-ULIP cap, ₹2.5 Lakh ULIP threshold, and Section 80C changes."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="border-b border-[#E5E3D8] pb-8 mb-12">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FEF3C7] text-[#92400E]">
+          Current Law: FY 2026–27
+        </span>
+        <span class="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46]">
+          Income-tax Act, 2025
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+        Indian Life Insurance Taxation
+      </h1>
+      <p class="text-base text-[#475569] mt-3 max-w-3xl leading-relaxed">
+        Tax rules for Indian life insurance policies depend strictly on the policy issue date, annual premium thresholds, and product type. Explore the recodified statutory provisions and CBDT circulars.
+      </p>
+    </div>
+
+    <!-- Statutory Framework Summary Matrix -->
+    <div class="bg-white border border-[#E5E3D8] rounded-xl p-6 sm:p-8 mb-12 shadow-2xs">
+      <h2 class="text-xl font-bold font-serif text-[#0F172A] mb-4">
+        Statutory Exemption Matrix (Schedule II, Clause 2)
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs sm:text-sm border-collapse border border-[#E5E3D8]">
+          <thead>
+            <tr class="bg-[#F1EFEA] text-[#0F172A]">
+              <th class="p-3 text-left border border-[#D1CEBE]">Policy Type</th>
+              <th class="p-3 text-left border border-[#D1CEBE]">Issue Date</th>
+              <th class="p-3 text-left border border-[#D1CEBE]">Statutory Exemption Test</th>
+              <th class="p-3 text-left border border-[#D1CEBE]">Tax Consequence If Breached</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[#E5E3D8]">
+              <td class="p-3 font-semibold text-[#0F172A]">Pure Term Insurance</td>
+              <td class="p-3">Any date</td>
+              <td class="p-3 text-[#166534] font-medium">100% Tax-Free Death Benefit (No Cap)</td>
+              <td class="p-3 text-[#64748B]">N/A (No survival maturity amount)</td>
+            </tr>
+            <tr class="border-b border-[#E5E3D8] bg-[#FAF9F5]">
+              <td class="p-3 font-semibold text-[#0F172A]">ULIPs (Unit-Linked)</td>
+              <td class="p-3">On or after 1 Feb 2021</td>
+              <td class="p-3">Aggregate Annual Premium $\le$ <strong>₹2,50,000</strong> + 10x cover</td>
+              <td class="p-3 text-[#B91C1C]">Taxed as <strong>Capital Gains</strong> (12.5% LTCG)</td>
+            </tr>
+            <tr class="border-b border-[#E5E3D8]">
+              <td class="p-3 font-semibold text-[#0F172A]">Traditional / Guaranteed Non-ULIP</td>
+              <td class="p-3">On or after 1 April 2023</td>
+              <td class="p-3">Aggregate Annual Premium $\le$ <strong>₹5,00,000</strong> + 10x cover</td>
+              <td class="p-3 text-[#B91C1C]">Taxed as <strong>Income from Other Sources</strong> (Slab rates)</td>
+            </tr>
+            <tr class="border-b border-[#E5E3D8] bg-[#FAF9F5]">
+              <td class="p-3 font-semibold text-[#0F172A]">Historical Non-ULIP</td>
+              <td class="p-3">1 Apr 2012 to 31 Mar 2023</td>
+              <td class="p-3">Premium $\le$ 10% of Sum Assured (No ₹5L cap)</td>
+              <td class="p-3 text-[#B91C1C]">Entire maturity amount taxable as regular income</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-[#0F172A]">Death Benefit (Any Policy)</td>
+              <td class="p-3">Any date</td>
+              <td class="p-3 text-[#166534] font-medium">100% Tax-Free Universally (Except Keyman)</td>
+              <td class="p-3 text-[#64748B]">Zero tax in the hands of nominees</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div>
+      <h2 class="text-xl font-bold font-serif text-[#0F172A] mb-6">Detailed Taxation Guides</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {taxArticles.map((art) => (
+          <article class="bg-white border border-[#E5E3D8] rounded-xl p-6 flex flex-col justify-between hover:border-[#0D5C46] transition-colors">
+            <div class="space-y-3">
+              <span class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-[#FEF3C7] text-[#92400E]">
+                {art.data.applicableFinancialYear || 'Tax Guide'}
+              </span>
+              <h3 class="text-lg font-bold font-serif text-[#0F172A] leading-snug">
+                <a href={`/cover-and-capital-india/articles/${art.id}/`} class="hover:text-[#0D5C46]">
+                  {art.data.title}
+                </a>
+              </h3>
+              <p class="text-xs text-[#64748B] leading-relaxed line-clamp-3">
+                {art.data.description}
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-[#F1EFEA] flex items-center justify-between text-xs text-[#94A3B8]">
+              <span>{art.data.readingTime} min read</span>
+              <a href={`/cover-and-capital-india/articles/${art.id}/`} class="text-[#0D5C46] font-semibold hover:underline">
+                Read &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

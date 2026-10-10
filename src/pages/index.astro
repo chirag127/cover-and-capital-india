@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LifeCoverEstimator from '../components/calculators/LifeCoverEstimator.astro';
+import { author } from '../data/author';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const featuredArticles = allArticles.slice(0, 6);
+---
+
+<BaseLayout
+  title="Cover & Capital India | Research-First Insurance & Wealth Publication"
+  description="Independent, evidence-based educational publication on Indian life insurance, policy mechanics, taxation (Income-tax Act 2025), and financial mathematics. Founded by Chirag Singhal."
+>
+  <!-- Masthead Hero -->
+  <section class="border-b border-[#E5E3D8] bg-[#FAF9F5] py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6F3EF] border border-[#BBF7D0] text-xs font-semibold text-[#0D5C46]">
+          <span>🏛️</span>
+          <span>Independent Indian Insurance & Taxation Library</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif text-[#0F172A] tracking-tight leading-[1.15]">
+          Understand Insurance Before You Commit Your Money.
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[#334155] leading-relaxed">
+          Independent educational guides to life insurance, policy contracts, exclusions, statutory taxation, and the mathematics of investing in India. No sales pitches. No affiliate rankings. Zero commercial bias.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="/cover-and-capital-india/start-here/"
+            class="px-5 py-3 bg-[#0D5C46] text-white rounded-lg text-sm font-semibold hover:bg-[#083E2F] shadow-sm transition-colors"
+          >
+            Start Here: Beginner's Blueprint &rarr;
+          </a>
+          <a
+            href="/cover-and-capital-india/calculators/"
+            class="px-5 py-3 bg-white text-[#0F172A] border border-[#CBD5E1] rounded-lg text-sm font-semibold hover:border-[#0D5C46] hover:text-[#0D5C46] transition-colors"
+          >
+            Explore Financial Calculators
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 Major Core Entry Points -->
+  <section class="py-12 bg-white border-b border-[#E5E3D8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#0D5C46]">Curated Knowledge Streams</h2>
+        <p class="text-2xl font-serif font-bold text-[#0F172A] mt-1">Explore Core Categories</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a
+          href="/cover-and-capital-india/insurance/term/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">🛡️</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            Term Life Insurance
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Pure protection mechanics, regular pay vs limited pay analysis, smoker underwriting, and the 12-month suicide clause.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            Explore Term Guides &rarr;
+          </span>
+        </a>
+
+        <a
+          href="/cover-and-capital-india/insurance/ulip/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">📊</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            ULIPs & Unit-Linked Plans
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Forensic analysis of FMC, mortality deductions, 5-year lock-in rules, and the statutory ₹2.5 Lakh annual tax threshold.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            Explore ULIP Guides &rarr;
+          </span>
+        </a>
+
+        <a
+          href="/cover-and-capital-india/insurance/guaranteed/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">📜</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            Guaranteed & Savings Plans
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Traditional endowments, non-par income plans, calculating true cash-flow IRR, and the ₹5 Lakh non-ULIP tax cap.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            Explore Guaranteed Plans &rarr;
+          </span>
+        </a>
+
+        <a
+          href="/cover-and-capital-india/taxation/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">⚖️</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            Insurance Taxation (FY 2026–27)
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Income-tax Act, 2025 transition, Schedule II(2) recodification, Section 80C obsolescence, and CBDT circulars.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            Read Tax Framework &rarr;
+          </span>
+        </a>
+
+        <a
+          href="/cover-and-capital-india/comparisons/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">⚖️</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            Comparison Centre
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Term + Mutual Funds vs ULIP, Guaranteed Plans vs PPF/Fixed Deposits, and Systematic Withdrawal Plans vs Annuities.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            View All Comparisons &rarr;
+          </span>
+        </a>
+
+        <a
+          href="/cover-and-capital-india/insurance/claims/"
+          class="group p-6 rounded-xl border border-[#E5E3D8] bg-[#FAF9F5] hover:border-[#0D5C46] hover:shadow-sm transition-all"
+        >
+          <span class="text-2xl mb-2 block">📋</span>
+          <h3 class="text-lg font-bold font-serif text-[#0F172A] group-hover:text-[#0D5C46] transition-colors">
+            Claims & Policyholder Rights
+          </h3>
+          <p class="text-xs text-[#64748B] mt-2 leading-relaxed">
+            Section 45 3-year incontestability moratorium, early claim forensic audits, MWPA trusts, and Ombudsman rules.
+          </p>
+          <span class="text-xs font-semibold text-[#0D5C46] mt-4 inline-block group-hover:translate-x-1 transition-transform">
+            Explore Claims Guides &rarr;
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Cornerstone Articles -->
+  <section class="py-16 bg-[#FAF9F5] border-b border-[#E5E3D8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between mb-8 flex-wrap gap-2">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-[#0D5C46]">Researched Cornerstone Literature</h2>
+          <p class="text-2xl font-serif font-bold text-[#0F172A] mt-1">Featured Analytical Guides</p>
+        </div>
+        <a href="/cover-and-capital-india/insurance/" class="text-xs font-semibold text-[#0D5C46] hover:underline">
+          Browse All Articles &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredArticles.map((art) => (
+          <article class="bg-white border border-[#E5E3D8] rounded-xl p-6 flex flex-col justify-between hover:border-[#0D5C46] transition-colors">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-[11px] text-[#64748B]">
+                <span class="font-semibold uppercase px-2 py-0.5 rounded bg-[#F1EFEA] text-[#0D5C46]">
+                  {art.data.category}
+                </span>
+                <span>{art.data.readingTime} min read</span>
+              </div>
+              <h3 class="text-base font-bold font-serif text-[#0F172A] leading-snug">
+                <a href={`/cover-and-capital-india/articles/${art.id}/`} class="hover:text-[#0D5C46]">
+                  {art.data.title}
+                </a>
+              </h3>
+              <p class="text-xs text-[#64748B] leading-relaxed line-clamp-3">
+                {art.data.description}
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-[#F1EFEA] flex items-center justify-between text-xs text-[#94A3B8]">
+              <span>Fact-Checked: {art.data.reviewedAt || art.data.publishedAt}</span>
+              <a
+                href={`/cover-and-capital-india/articles/${art.id}/`}
+                class="text-[#0D5C46] font-semibold hover:underline"
+              >
+                Read &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Calculator Showcase -->
+  <section class="py-16 bg-white border-b border-[#E5E3D8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-8">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#0D5C46]">Client-Side Financial Mathematics</h2>
+        <p class="text-3xl font-serif font-bold text-[#0F172A] mt-1">Estimate Your Cover from First Principles</p>
+        <p class="text-sm text-[#64748B] mt-2">
+          Calculates expense replacement and liability coverage in memory. Zero data sent to servers.
+        </p>
+      </div>
+
+      <LifeCoverEstimator />
+    </div>
+  </section>
+
+  <!-- Author & Educational Mission Section -->
+  <section class="py-16 bg-[#FAF9F5]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white border border-[#D1CEBE] rounded-2xl p-8 sm:p-12 shadow-xs space-y-6">
+        <div class="flex items-center gap-4 flex-wrap">
+          <div class="w-16 h-16 rounded-full bg-[#0D5C46] text-white flex items-center justify-center font-bold text-2xl font-serif">
+            CS
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold font-serif text-[#0F172A]">{author.name}</h2>
+            <div class="text-xs text-[#0D5C46] font-semibold">{author.work}</div>
+            <div class="text-xs text-[#64748B]">{author.education}</div>
+          </div>
+        </div>
+
+        <div class="text-sm text-[#334155] leading-relaxed space-y-3">
+          <p>
+            "I created <strong>Cover & Capital India</strong> because the Indian personal-finance ecosystem is flooded with commercial sales pitches, opaque illustrations, and confusing tax claims. As a software engineer working inside the Indian technology industry, I believe complex financial products should be understood through first principles, verifiable contract wording, and transparent mathematics."
+          </p>
+          <p>
+            Every article is mapped to primary statutes (Insurance Act, 1938; Income-tax Act, 2025; IRDAI Master Circulars). All calculators run client-side in TypeScript with explicit formulas and automated unit tests.
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-[#E5E3D8] flex flex-wrap items-center justify-between text-xs text-[#64748B] gap-4">
+          <div class="flex items-center gap-3">
+            <a href="/cover-and-capital-india/about/" class="text-[#0D5C46] font-semibold hover:underline">
+              Read Author Story & Educational Philosophy &rarr;
+            </a>
+            <span>&bull;</span>
+            <a href="/cover-and-capital-india/editorial-standards/" class="hover:underline">Editorial Standards</a>
+            <span>&bull;</span>
+            <a href="/cover-and-capital-india/sources/" class="hover:underline">Source Library</a>
+          </div>
+          <div>
+            Contact: <a href={`mailto:${author.contactEmail}`} class="text-[#0D5C46] font-medium">{author.contactEmail}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

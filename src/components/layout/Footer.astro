@@ -1,0 +1,103 @@
+---
+import { author } from '../../data/author';
+---
+
+<footer class="bg-[#111827] text-[#94A3B8] border-t border-[#1F2937] mt-20">
+  <!-- Educational Disclaimer Banner -->
+  <div class="bg-[#0B132B] border-b border-[#1E293B] py-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-start gap-3">
+        <span class="text-amber-400 mt-0.5 text-lg" aria-hidden="true">⚠️</span>
+        <div class="text-xs text-[#CBD5E1] leading-relaxed">
+          <strong class="text-white block font-semibold mb-0.5">Strict Educational & Non-Advisory Disclaimer:</strong>
+          Cover & Capital India is an independent research publication authored by {author.name}. This publication does NOT provide individual financial advice, tax opinions, actuarial certifications, or insurance broking. Products and statutory rules are analyzed from first principles using public legislation and IRDAI filings. Always review your official policy bond and consult qualified professionals for case-specific needs.
+        </div>
+      </div>
+      <a
+        href="/cover-and-capital-india/editorial-standards/"
+        class="shrink-0 text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-4"
+      >
+        Read Editorial Standards &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+      <!-- Publication Brand & Author Column -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-bold font-serif text-white tracking-tight">Cover & Capital</span>
+          <span class="text-xs uppercase font-semibold px-1.5 py-0.5 rounded bg-emerald-600 text-white">India</span>
+        </div>
+        <p class="text-sm text-[#94A3B8] leading-relaxed">
+          An independently authored, research-first guide to life insurance, policy mechanics, taxation, and wealth building in India. Built with strict mathematics, transparent code, and zero commercial sponsorships.
+        </p>
+        <div class="pt-2">
+          <div class="text-xs text-[#E2E8F0] font-semibold mb-1">Authored by {author.name}</div>
+          <div class="text-xs text-[#94A3B8]">{author.work} &bull; {author.education}</div>
+        </div>
+        <div class="flex items-center gap-4 pt-2">
+          <a href={author.socials.github} target="_blank" rel="noopener noreferrer" class="text-[#94A3B8] hover:text-white text-xs">GitHub</a>
+          <a href={author.socials.linkedin} target="_blank" rel="noopener noreferrer" class="text-[#94A3B8] hover:text-white text-xs">LinkedIn</a>
+          <a href={author.socials.twitter} target="_blank" rel="noopener noreferrer" class="text-[#94A3B8] hover:text-white text-xs">X (Twitter)</a>
+          <a href={author.socials.youtube} target="_blank" rel="noopener noreferrer" class="text-[#94A3B8] hover:text-white text-xs">YouTube</a>
+          <a href={`mailto:${author.contactEmail}`} class="text-emerald-400 hover:text-emerald-300 text-xs">{author.contactEmail}</a>
+        </div>
+      </div>
+
+      <!-- Core Topics -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Insurance Guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/cover-and-capital-india/start-here/" class="hover:text-white transition-colors">Start Here Guide</a></li>
+          <li><a href="/cover-and-capital-india/insurance/term/" class="hover:text-white transition-colors">Term Insurance</a></li>
+          <li><a href="/cover-and-capital-india/insurance/ulip/" class="hover:text-white transition-colors">ULIPs Explained</a></li>
+          <li><a href="/cover-and-capital-india/insurance/guaranteed/" class="hover:text-white transition-colors">Guaranteed Plans</a></li>
+          <li><a href="/cover-and-capital-india/insurance/riders/" class="hover:text-white transition-colors">Riders & Add-ons</a></li>
+          <li><a href="/cover-and-capital-india/insurance/claims/" class="hover:text-white transition-colors">Claims & Exclusions</a></li>
+          <li><a href="/cover-and-capital-india/insurance/surrender/" class="hover:text-white transition-colors">Surrender Decisions</a></li>
+        </ul>
+      </div>
+
+      <!-- Financial Tools & Tax -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Tools & Research</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/cover-and-capital-india/calculators/" class="hover:text-white transition-colors">Calculators Hub</a></li>
+          <li><a href="/cover-and-capital-india/taxation/" class="hover:text-white transition-colors">Income-tax Act 2025</a></li>
+          <li><a href="/cover-and-capital-india/comparisons/" class="hover:text-white transition-colors">Comparison Centre</a></li>
+          <li><a href="/cover-and-capital-india/glossary/" class="hover:text-white transition-colors">Insurance Glossary</a></li>
+          <li><a href="/cover-and-capital-india/sources/" class="hover:text-white transition-colors">Statutory Sources</a></li>
+          <li><a href="/cover-and-capital-india/search/" class="hover:text-white transition-colors">Search Library</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal & Transparency -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Transparency</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/cover-and-capital-india/about/" class="hover:text-white transition-colors">About Chirag Singhal</a></li>
+          <li><a href="/cover-and-capital-india/editorial-standards/" class="hover:text-white transition-colors">Editorial Standards</a></li>
+          <li><a href="/cover-and-capital-india/research/" class="hover:text-white transition-colors">Research Methodology</a></li>
+          <li><a href="/cover-and-capital-india/disclaimer/" class="hover:text-white transition-colors">Disclaimer</a></li>
+          <li><a href="/cover-and-capital-india/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="/cover-and-capital-india/contact/" class="hover:text-white transition-colors">Contact & Corrections</a></li>
+          <li><a href="/cover-and-capital-india/sitemap-index.xml" class="hover:text-white transition-colors">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-[#1F2937] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] gap-4">
+      <div>
+        &copy; {new Date().getFullYear()} Cover & Capital India. Independently researched and maintained by Chirag Singhal.
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Hosted statically on GitHub Pages</span>
+        <span>&bull;</span>
+        <span>Zero cookies &bull; Zero tracking</span>
+      </div>
+    </div>
+  </div>
+</footer>

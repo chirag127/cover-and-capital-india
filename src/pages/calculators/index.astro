@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LifeCoverEstimator from '../../components/calculators/LifeCoverEstimator.astro';
+import BuyTermInvestDiffCalculator from '../../components/calculators/BuyTermInvestDiffCalculator.astro';
+import GuaranteedReturnCalculator from '../../components/calculators/GuaranteedReturnCalculator.astro';
+import InflationCoverCalculator from '../../components/calculators/InflationCoverCalculator.astro';
+import NominalVsRealCalculator from '../../components/calculators/NominalVsRealCalculator.astro';
+import SurrenderDecisionCalculator from '../../components/calculators/SurrenderDecisionCalculator.astro';
+---
+
+<BaseLayout
+  title="Financial Calculators Hub | Cover & Capital India"
+  description="Client-side financial mathematics tools for Indian insurance. Life Cover Estimator, Buy Term & Invest Difference, Guaranteed Policy IRR, and Inflation Erosion Calculators."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="border-b border-[#E5E3D8] pb-8 mb-12">
+      <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Financial Mathematics</span>
+      <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+        Financial Calculators & Actuarial Engines
+      </h1>
+      <p class="text-base text-[#475569] mt-3 max-w-3xl leading-relaxed">
+        All tools run entirely client-side in TypeScript. Zero backend transmission. No registration, no tracking, and no personal data collection.
+      </p>
+
+      <!-- Quick Nav anchors -->
+      <div class="flex flex-wrap items-center gap-2 mt-6 text-xs">
+        <a href="#cover-estimator" class="px-3 py-1.5 rounded-full bg-[#E6F3EF] text-[#0D5C46] font-semibold hover:bg-[#D1EBE3]">
+          Life Cover Estimator
+        </a>
+        <a href="#btid-analyzer" class="px-3 py-1.5 rounded-full bg-[#F1EFEA] text-[#334155] font-semibold hover:bg-[#E5E3D8]">
+          Term + Invest Difference
+        </a>
+        <a href="#irr-analyzer" class="px-3 py-1.5 rounded-full bg-[#F1EFEA] text-[#334155] font-semibold hover:bg-[#E5E3D8]">
+          Guaranteed Policy IRR
+        </a>
+        <a href="#inflation-cover" class="px-3 py-1.5 rounded-full bg-[#F1EFEA] text-[#334155] font-semibold hover:bg-[#E5E3D8]">
+          Inflation Purchasing Power
+        </a>
+        <a href="#nominal-real" class="px-3 py-1.5 rounded-full bg-[#F1EFEA] text-[#334155] font-semibold hover:bg-[#E5E3D8]">
+          Nominal vs Real Return
+        </a>
+        <a href="#surrender-analyzer" class="px-3 py-1.5 rounded-full bg-[#F1EFEA] text-[#334155] font-semibold hover:bg-[#E5E3D8]">
+          Surrender vs Keep
+        </a>
+      </div>
+    </div>
+
+    <!-- Section 1: Life Cover Estimator -->
+    <section id="cover-estimator" class="py-8 scroll-mt-24 border-b border-[#E5E3D8]">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">1. Life Cover Need Estimator</h2>
+        <p class="text-xs text-[#64748B]">Calculates income replacement and debt clearance capital without double-counting existing assets.</p>
+      </div>
+      <LifeCoverEstimator />
+    </section>
+
+    <!-- Section 2: BTID Analyzer -->
+    <section id="btid-analyzer" class="py-12 scroll-mt-24 border-b border-[#E5E3D8]">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">2. Buy Term & Invest Difference (BTID) Analyzer</h2>
+        <p class="text-xs text-[#64748B]">Simulates the terminal wealth differential between bundled policies and separating term insurance from direct mutual funds.</p>
+      </div>
+      <BuyTermInvestDiffCalculator />
+    </section>
+
+    <!-- Section 3: Guaranteed Policy IRR Analyzer -->
+    <section id="irr-analyzer" class="py-12 scroll-mt-24 border-b border-[#E5E3D8]">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">3. Guaranteed Policy Return & Cash-Flow IRR Analyzer</h2>
+        <p class="text-xs text-[#64748B]">Solves for the exact internal rate of return using the Newton-Raphson polynomial method.</p>
+      </div>
+      <GuaranteedReturnCalculator />
+    </section>
+
+    <!-- Section 4: Inflation Cover Calculator -->
+    <section id="inflation-cover" class="py-12 scroll-mt-24 border-b border-[#E5E3D8]">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">4. Inflation-Adjusted Cover Calculator</h2>
+        <p class="text-xs text-[#64748B]">Visualizes the compound erosion of fixed nominal death benefits across 25 to 30 years.</p>
+      </div>
+      <InflationCoverCalculator />
+    </section>
+
+    <!-- Section 5: Nominal vs Real Return -->
+    <section id="nominal-real" class="py-12 scroll-mt-24 border-b border-[#E5E3D8]">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">5. Nominal vs Real Return Calculator</h2>
+        <p class="text-xs text-[#64748B]">Calculates exact real purchasing-power yield via the Fisher relationship: (1 + r_real) = (1 + r_nominal) / (1 + inflation).</p>
+      </div>
+      <NominalVsRealCalculator />
+    </section>
+
+    <!-- Section 6: Surrender vs Keep -->
+    <section id="surrender-analyzer" class="py-12 scroll-mt-24">
+      <div class="max-w-3xl mx-auto mb-4">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">6. Policy Surrender vs Paid-Up vs Keep Analyzer</h2>
+        <p class="text-xs text-[#64748B]">Evaluates whether to continue paying an underperforming policy or surrender and reinvest future premiums.</p>
+      </div>
+      <SurrenderDecisionCalculator />
+    </section>
+  </div>
+</BaseLayout>

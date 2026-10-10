@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { author } from '../data/author';
+---
+
+<BaseLayout
+  title="Legal & Educational Disclaimer | Cover & Capital India"
+  description="Important legal, regulatory, and educational disclaimers. Cover & Capital India is an independent research publication, not a regulated intermediary or adviser."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="space-y-8">
+      <div class="border-b border-[#E5E3D8] pb-6">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#991B1B]">Statutory Notice</span>
+        <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+          Legal & Non-Advisory Disclaimer
+        </h1>
+        <p class="text-base text-[#475569] mt-3 leading-relaxed">
+          Please read this notice carefully before using any content, comparison model, or calculator on Cover & Capital India.
+        </p>
+      </div>
+
+      <div class="editorial-prose space-y-6">
+        <div class="bg-[#FEF2F2] border-l-4 border-red-600 p-5 rounded-r text-sm text-[#991B1B] leading-relaxed">
+          <strong>1. Not Regulated Financial, Tax, or Legal Advice:</strong><br />
+          The content published on Cover & Capital India is created exclusively for informational, educational, and research purposes. It does NOT constitute personal financial planning, investment advice, tax consultancy, actuarial certification, or legal opinion. The author ({author.name}) is an independent software engineer and researcher, not an IRDAI-licensed insurance broker, corporate agent, actuary, SEBI-registered investment adviser (RIA), or chartered accountant.
+        </div>
+
+        <h2>2. No Insurer Affiliation or Claims Adjudication Authority</h2>
+        <p>
+          Cover & Capital India is not an insurance company, insurer, broker, or agent. We do not underwrite policies, accept premiums, adjudicate claims, or represent any insurer. We have no authority to approve or guarantee claim settlements.
+        </p>
+
+        <h2>3. Contract Precedence: The Policy Bond Rules</h2>
+        <p>
+          Every life insurance product is governed strictly by the formal legal contract (the Policy Document / Policy Bond) issued by the respective life insurance company and filed with IRDAI under its Unique Identification Number (UIN). In the event of any contradiction or inconsistency between explanations on this website and your official policy bond, <strong>the official policy bond wording shall strictly govern</strong>.
+        </p>
+
+        <h2>4. Calculator Assumptions & Model Limitations</h2>
+        <p>
+          Financial return models (such as IRR, XIRR, and BTID comparisons) are mathematical approximations based on explicitly stated hypothetical discount rates, inflation deflators, and published bonus rates. Future market returns, equity dividends, and insurer bonus declarations cannot be guaranteed and are subject to market volatility, interest-rate fluctuations, and macroeconomic risks.
+        </p>
+
+        <h2>5. Statutory Amendments & Time Sensitivity</h2>
+        <p>
+          Taxation laws and insurance regulations in India are subject to periodic amendment by Parliament, the Ministry of Finance, the Central Board of Direct Taxes (CBDT), and IRDAI. While we strive to maintain our content in alignment with the Income-tax Act, 2025 and applicable circulars, past articles reflect statutory provisions as of their stated review dates. Readers must verify current legal provisions with a qualified tax professional before acting.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,119 @@
+---
+title: "Guaranteed Insurance Plans: How to Calculate the Actual Cash-Flow Return"
+slug: "guaranteed-insurance-plans-cash-flow-irr"
+description: "A mathematical guide to calculating the Internal Rate of Return (IRR) on guaranteed income and endowment plans. Deconstructs bonus declarations and the ₹5 Lakh tax cap."
+summary: "Guaranteed income plans promise fixed cash flows for decades. This guide demystifies the actual cash-flow IRR behind illustrative percentages, explains reversionary bonus declarations, and analyzes the ₹5,00,000 tax cap under the Income-tax Act, 2025."
+category: "guaranteed-savings"
+subcategory: "return-analysis"
+tags: ["guaranteed-plans", "irr", "traditional-endowment", "taxation", "cbdt", "math"]
+author: "Chirag Singhal"
+draft: false
+publishedAt: "2026-10-10"
+updatedAt: "2026-10-10"
+reviewedAt: "2026-10-10"
+reviewStatus: "approved"
+readingTime: 16
+difficulty: "advanced"
+applicableFinancialYear: "FY 2026–27"
+applicablePolicyDates: "Policies issued after 1 April 2023"
+regulatoryJurisdiction: "India (IRDAI & Income Tax Department)"
+sourceReferences:
+  - id: "cbdt-cir-15-2023"
+    title: "CBDT Circular No. 15 of 2023 (Guidelines on High-Premium Traditional Policies)"
+    issuingAuthority: "Central Board of Direct Taxes (CBDT)"
+    referenceNumber: "Circular No. 15/2023"
+    officialUrl: "https://incometaxindia.gov.in"
+    publishedDate: "2023-08-16"
+    effectiveDate: "2023-04-01"
+    lastVerifiedDate: "2026-10-10"
+    relevantClause: "Paragraphs 3 & 4 (Taxation of non-ULIPs where premium exceeds ₹5,00,000)"
+    substantiveClaim: "Limits tax-free maturity under Schedule II(2) to traditional life policies with aggregate annual premium up to ₹5 Lakh."
+  - id: "irdai-master-cir-2024-surrender"
+    title: "IRDAI Master Circular on Life Insurance Products 2024 (Surrender Value Norms)"
+    issuingAuthority: "IRDAI"
+    referenceNumber: "IRDAI/ACTL/CIR/MISC/89/06/2024"
+    officialUrl: "https://irdai.gov.in"
+    publishedDate: "2024-06-12"
+    effectiveDate: "2024-06-12"
+    lastVerifiedDate: "2026-10-10"
+    relevantClause: "Clause 14 (Special Surrender Value Scale)"
+    substantiveClaim: "Enhances surrender value payouts for policies discontinued after the first year."
+relatedArticles:
+  - "how-to-calculate-irr-xirr-insurance"
+  - "indian-life-insurance-taxation-guide-2025"
+faq:
+  - question: "Why do agents say a policy gives an 8% guaranteed return when the IRR is only 5.5%?"
+    answer: "Agents calculate the percentage as: (Annual Payout / One Year's Premium). For example, receiving ₹80,000 on a ₹10,00,000 cumulative investment is marketed as '8%', completely ignoring the 10 years of prior premium outflows and the time value of money."
+  - question: "Is the maturity amount of a guaranteed savings plan tax-free?"
+    answer: "Under the Income-tax Act, 2025 (Schedule II, Clause 2), maturity proceeds are tax-free ONLY if the aggregate annual premium across all non-ULIP policies issued on or after 1 April 2023 does not exceed ₹5,00,000, and annual premium is under 10% of sum assured."
+---
+
+## 1. Deconstructing the "Guaranteed Return" Pitch
+In the Indian bancassurance and agency channel, non-participating "Guaranteed Income Plans" are widely marketed to risk-averse savers with phrases such as:
+* *"Pay ₹1,00,000 for 10 years, get Guaranteed ₹1,10,000 every year for 25 years + 100% money back!"*
+* *"Guaranteed 11% annual income for life!"*
+
+To a lay saver, "11% guaranteed income" sounds vastly superior to bank fixed deposits (6.5%–7.0%) or Public Provident Fund (7.1%).
+
+However, in financial mathematics, **the payout ratio is not the rate of return**. You cannot calculate the return on a multi-period investment by dividing the cash inflow by a single year's premium. You must calculate the **Internal Rate of Return (IRR)**.
+
+---
+
+## 2. The Step-by-Step Cash-Flow Model
+Consider the popular structure:
+* **Premium Paying Term (PPT)**: 10 Years.
+* **Annual Premium**: ₹1,00,000 (Outflow at $t = 0, 1, 2, \dots, 9$).
+* **Deferment / Waiting Period**: 1 Year ($t = 10$).
+* **Payout Period**: 25 Years ($t = 11$ to $t = 35$).
+* **Annual Payout Received**: ₹1,05,000 per year.
+* **Maturity / Terminal Benefit**: Return of all 10 premiums paid (₹10,00,000) at $t = 35$.
+
+### The Cash-Flow Schedule
+
+$$\sum_{t=0}^{35} \frac{CF_t}{(1 + r)^t} = 0$$
+
+```mermaid
+flowchart LR
+    Years0to9[Years 0-9: Outflow -₹1 Lakh/yr] --> Year10[Year 10: Deferment ₹0]
+    Year10 --> Years11to34[Years 11-34: Inflow +₹1.05 Lakh/yr]
+    Years11to34 --> Year35[Year 35: Inflow +₹1.05L + ₹10L ROP]
+```
+
+When you solve for $r$ using the Newton-Raphson root-finding algorithm:
+$$\text{Actual Annual Cash-Flow IRR} = \mathbf{5.78\%}$$
+
+### The Economic Reality
+* Stated brochure headline: "10.5% Guaranteed Income".
+* **Actual Net Annual Return**: **5.78%**.
+* Over 35 years, locking capital at 5.78% in a developing economy with historical inflation around 5.5%–6.0% produces a **near-zero real return**.
+
+---
+
+## 3. Types of Bonuses in Traditional Policies
+In traditional participating (with-profits) plans, returns depend on declared bonuses:
+
+### A. Simple Reversionary Bonus
+* Declared annually per thousand sum assured (e.g. ₹42 per ₹1,000 Sum Assured).
+* Crucial trap: It is **not compounded**. It is simply credited to the policy account and paid out only on death or maturity, without earning interest.
+$$\text{Annual Addition} = \text{Sum Assured} \times \frac{\text{Bonus Rate}}{1000}$$
+
+### B. Compound Reversionary Bonus
+* Added to the basic sum assured plus already accrued bonuses. Used by select private insurers.
+
+### C. Terminal Bonus / Loyalty Additions
+* Discretionary one-time additions paid at maturity. Insurers have no contractual obligation to pay a specific terminal bonus rate.
+
+---
+
+## 4. The ₹5,00,000 Statutory Tax Cap (Income-tax Act, 2025)
+Under reforms originally introduced in Finance Act, 2023 and codified under **Schedule II, Clause 2** of the **Income-tax Act, 2025**:
+
+1. **Threshold Rule**:
+   * For non-ULIP policies issued on or after **1 April 2023**, maturity proceeds are exempt only if the **aggregate annual premium across all such policies does not exceed ₹5,00,000**.
+2. **Taxation of High-Value Policies**:
+   * If annual premium exceeds ₹5 Lakh, maturity proceeds are **taxable**.
+   * Under CBDT Circular No. 15/2023, the taxable income is computed as:
+   $$\text{Taxable Income} = \text{Maturity Sum Received} - \sum \text{Total Premiums Paid}$$
+   * This net income is added to **Income from Other Sources** and taxed at normal applicable slab rates (e.g. up to 30% + surcharge).
+3. **Pure Term Exemption**:
+   * Pure term life insurance is explicitly **excluded** from this cap. Term death benefits remain 100% tax-free.

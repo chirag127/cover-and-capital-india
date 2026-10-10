@@ -1,0 +1,111 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  publishedDate?: string;
+  updatedDate?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = 'An independent, research-first guide to life insurance, financial protection, taxation, and wealth building in India. By Chirag Singhal.',
+  canonicalUrl,
+  publishedDate,
+  updatedDate,
+  ogType = 'website',
+} = Astro.props;
+
+const siteUrl = 'https://chirag127.github.io';
+const basePath = '/cover-and-capital-india';
+const currentUrl = canonicalUrl || `${siteUrl}${Astro.url.pathname}`;
+const pageTitle = title.includes('Cover & Capital India') ? title : `${title} | Cover & Capital India`;
+---
+
+<!doctype html>
+<html lang="en-IN" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={`${basePath}/favicon.svg`} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={currentUrl} />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Cover & Capital India" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@singhal127Do" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- KaTeX CSS for mathematical typesetting -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ogType === 'article' ? 'Article' : 'WebSite',
+      "name": "Cover & Capital India",
+      "url": `${siteUrl}${basePath}/`,
+      "description": description,
+      "author": {
+        "@type": "Person",
+        "name": "Chirag Singhal",
+        "url": `${siteUrl}${basePath}/about/`,
+        "sameAs": [
+          "https://github.com/chirag127/",
+          "https://www.linkedin.com/in/chirag127/",
+          "https://x.com/singhal127Do"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cover & Capital India",
+        "url": `${siteUrl}${basePath}/`
+      },
+      ...(publishedDate ? { "datePublished": publishedDate } : {}),
+      ...(updatedDate ? { "dateModified": updatedDate } : {})
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#FAF9F5] text-[#0F172A] selection:bg-[#E6F3EF] selection:text-[#0D5C46]">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#0D5C46] focus:text-white focus:rounded-md focus:shadow-lg"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content" class="grow">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

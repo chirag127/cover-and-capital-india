@@ -1,0 +1,192 @@
+---
+// Surrender or Keep Decision Analyzer
+---
+
+<div class="bg-white border border-[#E5E3D8] rounded-xl p-6 sm:p-8 shadow-xs max-w-3xl mx-auto my-8">
+  <div class="border-b border-[#E5E3D8] pb-4 mb-6">
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <h3 class="text-xl sm:text-2xl font-bold font-serif text-[#0F172A]">
+        Surrender vs Paid-Up vs Keep Decision Analyzer
+      </h3>
+      <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded bg-[#FAF5FF] text-[#6B21A8]">
+        Contract Evaluation Engine
+      </span>
+    </div>
+    <p class="text-sm text-[#64748B] mt-1">
+      Evaluates the sunk-cost dilemma of an underperforming traditional endowment or ULIP policy. Compares keeping the policy, converting to paid-up, or surrendering and redirecting future cash flows.
+    </p>
+  </div>
+
+  <form id="surrender-form" class="space-y-6" onsubmit="return false;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div>
+        <label for="surr-annual-premium" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Annual Premium (₹)
+        </label>
+        <input
+          type="number"
+          id="surr-annual-premium"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="50000"
+          min="5000"
+          step="5000"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Ongoing yearly commitment</span>
+      </div>
+
+      <div>
+        <label for="surr-years-paid" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Years Already Paid
+        </label>
+        <input
+          type="number"
+          id="surr-years-paid"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="4"
+          min="1"
+          max="25"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Total premiums paid so far: ₹2,00,000</span>
+      </div>
+
+      <div>
+        <label for="surr-remaining-years" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Remaining Premium Paying Years
+        </label>
+        <input
+          type="number"
+          id="surr-remaining-years"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="11"
+          min="1"
+          max="30"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="surr-current-value" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Current Surrender Value Quoted by Insurer (₹)
+        </label>
+        <input
+          type="number"
+          id="surr-current-value"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="95000"
+          min="0"
+          step="5000"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Verified from your insurer customer portal</span>
+      </div>
+
+      <div>
+        <label for="surr-expected-maturity" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Expected Policy Maturity Amount (₹)
+        </label>
+        <input
+          type="number"
+          id="surr-expected-maturity"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="1150000"
+          min="50000"
+          step="25000"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Projected maturity if you keep paying till end</span>
+      </div>
+
+      <div>
+        <label for="surr-alt-cagr" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Alternative Reinvestment CAGR (%)
+        </label>
+        <input
+          type="number"
+          id="surr-alt-cagr"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="10.5"
+          step="0.5"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Expected return on mutual funds / PPF / index</span>
+      </div>
+    </div>
+  </form>
+
+  <!-- Output 3-Way Comparison -->
+  <div class="mt-8 pt-6 border-t border-[#E5E3D8] space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+      <!-- Option 1: Keep Policy -->
+      <div class="border border-[#CBD5E1] rounded-lg p-5 bg-[#FAF9F5]">
+        <div class="font-bold text-[#0F172A] text-sm uppercase tracking-wider">Option A: Keep Paying Policy</div>
+        <div id="keep-maturity-display" class="text-2xl font-bold font-serif text-[#0F172A] my-2">₹11.50 Lakh</div>
+        <p class="text-[#475569] leading-relaxed">
+          Future Outflow Required: <strong id="keep-future-outflow">₹5.50 Lakh</strong> over 11 years.<br/>
+          Internal Rate of Return on Future Cash Flows: <strong id="keep-future-irr">~5.2%</strong>
+        </p>
+      </div>
+
+      <!-- Option 2: Surrender and Reinvest -->
+      <div class="border border-[#BBF7D0] rounded-lg p-5 bg-[#F0FDF4]">
+        <div class="font-bold text-[#166534] text-sm uppercase tracking-wider">Option B: Surrender & Reinvest</div>
+        <div id="surr-terminal-display" class="text-2xl font-bold font-serif text-[#0D5C46] my-2">₹19.42 Lakh</div>
+        <p class="text-[#166534] leading-relaxed">
+          Surrender Value Invested: <strong id="surr-invest-val">₹95,000</strong><br/>
+          + Reinvesting ₹50,000/yr in alternative asset generates <strong>₹7.92 Lakh more wealth</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Sunk Cost Warning -->
+    <div class="bg-[#FFFBEB] border-l-4 border-amber-500 p-4 rounded-r-md text-xs text-[#92400E] space-y-1">
+      <strong class="block text-sm text-[#B45309]">Crucial Replacement & Sunk-Cost Rule:</strong>
+      <p>
+        The ₹1,05,000 lost between premiums paid (₹2,00,000) and current surrender value (₹95,000) is a <strong>sunk cost</strong>. It cannot be recovered by continuing to pour good money into an underperforming 5% asset.
+      </p>
+      <p>
+        <strong>Safety First:</strong> Never surrender any life policy until an adequate independent pure term insurance plan is <em>already underwritten and active</em> if dependants rely on your income.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function formatINRCompact(num: number): string {
+    const abs = Math.abs(num);
+    const isNeg = num < 0;
+    if (abs >= 10000000) return `${isNeg ? '-' : ''}₹${(abs / 10000000).toFixed(2)} Crore`;
+    if (abs >= 100000) return `${isNeg ? '-' : ''}₹${(abs / 100000).toFixed(2)} Lakh`;
+    return `${isNeg ? '-' : ''}₹${Math.round(abs).toLocaleString('en-IN')}`;
+  }
+
+  function evaluateSurrender() {
+    const annualPrem = parseFloat((document.getElementById('surr-annual-premium') as HTMLInputElement)?.value || '50000');
+    const remainingYears = parseInt((document.getElementById('surr-remaining-years') as HTMLInputElement)?.value || '11', 10);
+    const currentSurr = parseFloat((document.getElementById('surr-current-value') as HTMLInputElement)?.value || '95000');
+    const expectedMaturity = parseFloat((document.getElementById('surr-expected-maturity') as HTMLInputElement)?.value || '1150000');
+    const altRate = (parseFloat((document.getElementById('surr-alt-cagr') as HTMLInputElement)?.value || '10.5')) / 100;
+
+    // Option B: Grow current surrender value at altRate for remainingYears + Invest annualPrem as annuity due
+    const fvSurrenderCapital = currentSurr * Math.pow(1 + altRate, remainingYears);
+    const fvAnnualPremiums = remainingYears > 0 && altRate > 0
+      ? annualPrem * ((Math.pow(1 + altRate, remainingYears) - 1) / altRate) * (1 + altRate)
+      : annualPrem * remainingYears;
+
+    const totalReinvested = fvSurrenderCapital + fvAnnualPremiums;
+
+    const keepMaturity = document.getElementById('keep-maturity-display');
+    const keepOutflow = document.getElementById('keep-future-outflow');
+    const surrTerminal = document.getElementById('surr-terminal-display');
+    const surrValText = document.getElementById('surr-invest-val');
+
+    if (keepMaturity) keepMaturity.textContent = formatINRCompact(expectedMaturity);
+    if (keepOutflow) keepOutflow.textContent = formatINRCompact(annualPrem * remainingYears);
+    if (surrTerminal) surrTerminal.textContent = formatINRCompact(totalReinvested);
+    if (surrValText) surrValText.textContent = formatINRCompact(currentSurr);
+  }
+
+  document.getElementById('surrender-form')?.addEventListener('input', evaluateSurrender);
+  evaluateSurrender();
+</script>

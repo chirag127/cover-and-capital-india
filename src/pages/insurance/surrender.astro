@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SurrenderDecisionCalculator from '../../components/calculators/SurrenderDecisionCalculator.astro';
+import { getCollection } from 'astro:content';
+
+const surrenderArticles = await getCollection('articles', ({ data }) => !data.draft && (data.category === 'claims-and-servicing' || data.tags.includes('surrender-value')));
+---
+
+<BaseLayout
+  title="Policy Reviews & Surrender Decisions | Keep vs Paid-Up vs Exit"
+  description="A decision framework for policyholders reviewing underperforming insurance policies. Evaluate Guaranteed Surrender Value (GSV), Special Surrender Value (SSV), and Paid-Up options."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="border-b border-[#E5E3D8] pb-8 mb-12">
+      <nav class="text-xs text-[#64748B] mb-4">
+        <a href="/cover-and-capital-india/" class="hover:text-[#0D5C46]">Home</a> &gt; 
+        <a href="/cover-and-capital-india/insurance/" class="hover:text-[#0D5C46]">Insurance</a> &gt; 
+        <span class="text-[#0F172A] font-medium">Surrender Decisions</span>
+      </nav>
+      <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Decision Framework</span>
+      <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+        Policy Reviews & Surrender Decisions
+      </h1>
+      <p class="text-base text-[#475569] mt-3 max-w-3xl leading-relaxed">
+        Trapped in an expensive or underperforming endowment policy? Evaluate the mathematical trade-offs between continuing to pay, converting to reduced paid-up status, or surrendering the contract.
+      </p>
+    </div>
+
+    <!-- Interactive Surrender Calculator -->
+    <div class="mb-16">
+      <div class="max-w-3xl mx-auto text-center mb-6">
+        <h2 class="text-2xl font-serif font-bold text-[#0F172A]">Interactive Surrender Analyzer</h2>
+        <p class="text-xs text-[#64748B] mt-1">Simulate whether to keep your policy or redirect future cash flows to higher-yielding assets.</p>
+      </div>
+      <SurrenderDecisionCalculator />
+    </div>
+
+    <!-- Related Articles -->
+    <div class="border-t border-[#E5E3D8] pt-12">
+      <h2 class="text-xl font-serif font-bold text-[#0F172A] mb-6">Detailed Research Guides</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {surrenderArticles.map((art) => (
+          <article class="bg-white border border-[#E5E3D8] rounded-xl p-6 flex flex-col justify-between hover:border-[#0D5C46] transition-colors">
+            <div class="space-y-3">
+              <span class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46]">
+                {art.data.category}
+              </span>
+              <h3 class="text-lg font-bold font-serif text-[#0F172A] leading-snug">
+                <a href={`/cover-and-capital-india/articles/${art.id}/`} class="hover:text-[#0D5C46]">
+                  {art.data.title}
+                </a>
+              </h3>
+              <p class="text-xs text-[#64748B] leading-relaxed line-clamp-3">
+                {art.data.description}
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-[#F1EFEA] flex items-center justify-between text-xs text-[#94A3B8]">
+              <span>{art.data.readingTime} min read</span>
+              <a href={`/cover-and-capital-india/articles/${art.id}/`} class="text-[#0D5C46] font-semibold hover:underline">
+                Read &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

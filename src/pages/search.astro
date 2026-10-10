@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const glossary = await getCollection('glossary');
+
+// Build lightweight search index for client
+const searchData = [
+  ...articles.map((a) => ({
+    title: a.data.title,
+    description: a.data.description,
+    category: a.data.category,
+    tags: a.data.tags,
+    difficulty: a.data.difficulty,
+    url: `/cover-and-capital-india/articles/${a.id}/`,
+    type: 'Article',
+  })),
+  ...glossary.map((g) => ({
+    title: g.data.term,
+    description: g.data.plainEnglishSummary,
+    category: g.data.category,
+    tags: g.data.relatedTerms || [],
+    difficulty: 'beginner',
+    url: `/cover-and-capital-india/glossary/`,
+    type: 'Glossary Term',
+  })),
+  {
+    title: 'Life Cover Need Estimator',
+    description: 'Calculate your term insurance requirement based on household expenses, debts, and goals.',
+    category: 'calculations',
+    tags: ['calculator', 'term-insurance', 'hlv'],
+    difficulty: 'beginner',
+    url: '/cover-and-capital-india/calculators/#cover-estimator',
+    type: 'Calculator',
+  },
+  {
+    title: 'Buy Term & Invest Difference (BTID) Analyzer',
+    description: 'Simulate the terminal wealth differential between bundled policies and separating term insurance from mutual funds.',
+    category: 'calculations',
+    tags: ['calculator', 'btid', 'mutual-funds'],
+    difficulty: 'intermediate',
+    url: '/cover-and-capital-india/calculators/#btid-analyzer',
+    type: 'Calculator',
+  },
+  {
+    title: 'Guaranteed Policy Return & IRR Analyzer',
+    description: 'Newton-Raphson cash-flow solver to find the true annualized IRR of guaranteed income plans.',
+    category: 'calculations',
+    tags: ['calculator', 'irr', 'endowment'],
+    difficulty: 'intermediate',
+    url: '/cover-and-capital-india/calculators/#irr-analyzer',
+    type: 'Calculator',
+  },
+  {
+    title: 'Inflation-Adjusted Cover Calculator',
+    description: 'Visualize how 6% inflation erodes a ₹1 Crore death benefit over 25 to 30 years.',
+    category: 'calculations',
+    tags: ['calculator', 'inflation', 'purchasing-power'],
+    difficulty: 'beginner',
+    url: '/cover-and-capital-india/calculators/#inflation-cover',
+    type: 'Calculator',
+  },
+  {
+    title: 'Nominal vs Real Return Calculator',
+    description: 'Compute exact real purchasing-power growth via the Fisher equation.',
+    category: 'calculations',
+    tags: ['calculator', 'fisher-equation', 'real-return'],
+    difficulty: 'beginner',
+    url: '/cover-and-capital-india/calculators/#nominal-real',
+    type: 'Calculator',
+  },
+  {
+    title: 'Policy Surrender vs Paid-Up vs Keep Analyzer',
+    description: 'Evaluate the sunk-cost dilemma of an underperforming traditional insurance policy.',
+    category: 'calculations',
+    tags: ['calculator', 'surrender-value', 'paid-up'],
+    difficulty: 'intermediate',
+    url: '/cover-and-capital-india/calculators/#surrender-analyzer',
+    type: 'Calculator',
+  },
+];
+---
+
+<BaseLayout
+  title="Search Library & Calculators | Cover & Capital India"
+  description="Instant client-side search across all educational articles, insurance guides, financial calculators, and glossary definitions on Cover & Capital India."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="border-b border-[#E5E3D8] pb-8 mb-8">
+      <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Discovery Engine</span>
+      <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+        Search Cover & Capital Library
+      </h1>
+      <p class="text-sm text-[#475569] mt-2">
+        Search all published articles, statutory tax explainers, financial calculators, and glossary definitions.
+      </p>
+
+      <!-- Search Input & Filters -->
+      <div class="mt-6 space-y-4">
+        <div class="relative">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Type keywords (e.g. Section 45, ULIP charges, IRR, surrender value, 80C)..."
+            class="w-full pl-11 pr-4 py-3 bg-white border border-[#CBD5E1] rounded-xl text-sm focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] shadow-xs"
+            autocomplete="off"
+            autofocus
+          />
+          <svg class="w-5 h-5 text-[#64748B] absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2 text-xs" id="filter-container">
+          <span class="text-[#64748B] font-semibold mr-1">Filter:</span>
+          <button type="button" class="filter-btn active px-3 py-1 rounded-full bg-[#0D5C46] text-white font-medium" data-cat="all">
+            All ({searchData.length})
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="term-insurance">
+            Term Insurance
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="ulip">
+            ULIPs
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="guaranteed-savings">
+            Guaranteed Plans
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="taxation">
+            Taxation
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="calculations">
+            Calculators
+          </button>
+          <button type="button" class="filter-btn px-3 py-1 rounded-full bg-[#F1EFEA] text-[#334155] font-medium hover:bg-[#E5E3D8]" data-cat="claims-and-servicing">
+            Claims
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Results List -->
+    <div id="results-count" class="text-xs text-[#64748B] mb-4 font-medium">
+      Showing all {searchData.length} educational resources
+    </div>
+
+    <div id="results-container" class="space-y-4">
+      <!-- Populated by client script -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-results" class="hidden text-center py-16 bg-white border border-[#E5E3D8] rounded-xl p-8 space-y-3">
+      <div class="text-3xl">🔍</div>
+      <h3 class="text-base font-bold text-[#0F172A]">No resources found</h3>
+      <p class="text-xs text-[#64748B] max-w-sm mx-auto">
+        We could not find anything matching your search term. Try searching for "ULIP", "Term Insurance", "IRR", "Taxation", or "Section 45".
+      </p>
+    </div>
+  </div>
+
+  <!-- Store client data safely in JSON script -->
+  <script id="search-data" type="application/json" set:html={JSON.stringify(searchData)} />
+</BaseLayout>
+
+<script>
+  interface SearchEntry {
+    title: string;
+    description: string;
+    category: string;
+    tags: string[];
+    difficulty: string;
+    url: string;
+    type: string;
+  }
+
+  const raw = document.getElementById('search-data')?.textContent;
+  const items: SearchEntry[] = raw ? JSON.parse(raw) : [];
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  const inputEl = document.getElementById('search-input') as HTMLInputElement;
+  const resultsContainer = document.getElementById('results-container');
+  const resultsCount = document.getElementById('results-count');
+  const noResultsEl = document.getElementById('no-results');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+
+  function render() {
+    if (!resultsContainer || !resultsCount || !noResultsEl) return;
+
+    const q = searchQuery.toLowerCase().trim();
+    const filtered = items.filter((item) => {
+      const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+      if (!matchesCategory) return false;
+      if (!q) return true;
+
+      const titleMatch = item.title.toLowerCase().includes(q);
+      const descMatch = item.description.toLowerCase().includes(q);
+      const tagsMatch = item.tags.some((t) => t.toLowerCase().includes(q));
+      return titleMatch || descMatch || tagsMatch;
+    });
+
+    resultsCount.textContent = `Showing ${filtered.length} matching educational ${filtered.length === 1 ? 'resource' : 'resources'}`;
+
+    if (filtered.length === 0) {
+      resultsContainer.innerHTML = '';
+      noResultsEl.classList.remove('hidden');
+    } else {
+      noResultsEl.classList.add('hidden');
+      resultsContainer.innerHTML = filtered
+        .map(
+          (item) => `
+          <div class="bg-white border border-[#E5E3D8] rounded-xl p-5 hover:border-[#0D5C46] transition-colors">
+            <div class="flex items-center gap-2 mb-2 text-[11px]">
+              <span class="font-semibold uppercase px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46]">
+                ${item.type}
+              </span>
+              <span class="capitalize px-1.5 py-0.5 rounded bg-[#F1EFEA] text-[#64748B]">
+                ${item.category}
+              </span>
+            </div>
+            <h3 class="text-base font-bold font-serif text-[#0F172A]">
+              <a href="${item.url}" class="hover:text-[#0D5C46]">
+                ${item.title}
+              </a>
+            </h3>
+            <p class="text-xs text-[#64748B] mt-1 leading-relaxed">
+              ${item.description}
+            </p>
+            <div class="mt-3 pt-2 border-t border-[#F8FAFC] flex justify-between items-center text-xs">
+              <span class="text-[#94A3B8]">Level: ${item.difficulty}</span>
+              <a href="${item.url}" class="text-[#0D5C46] font-semibold hover:underline">
+                Explore Resource &rarr;
+              </a>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+  }
+
+  inputEl?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value;
+    render();
+  });
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach((b) => {
+        b.classList.remove('active', 'bg-[#0D5C46]', 'text-white');
+        b.classList.add('bg-[#F1EFEA]', 'text-[#334155]');
+      });
+      btn.classList.add('active', 'bg-[#0D5C46]', 'text-white');
+      btn.classList.remove('bg-[#F1EFEA]', 'text-[#334155]');
+      currentCategory = btn.getAttribute('data-cat') || 'all';
+      render();
+    });
+  });
+
+  render();
+</script>

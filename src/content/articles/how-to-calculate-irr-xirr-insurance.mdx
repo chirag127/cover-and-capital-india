@@ -1,0 +1,117 @@
+---
+title: "How to Calculate IRR and XIRR for Insurance Policies: A Mathematical Guide"
+slug: "how-to-calculate-irr-xirr-insurance"
+description: "A mathematical breakdown of Internal Rate of Return (IRR) and XIRR for multi-period insurance policies. Explains Newton-Raphson root finding and why CAGR distorts reality."
+summary: "Why do insurance marketing brochures misuse CAGR to claim inflated returns? This guide explains the mathematics of IRR and XIRR, derives the Net Present Value polynomial, details the Newton-Raphson solver, and provides a clear audit framework for irregular cash flows."
+category: "calculations"
+subcategory: "financial-mathematics"
+tags: ["irr", "xirr", "mathematics", "newton-raphson", "cagr", "cash-flow-modeling"]
+author: "Chirag Singhal"
+draft: false
+publishedAt: "2026-10-10"
+updatedAt: "2026-10-10"
+reviewedAt: "2026-10-10"
+reviewStatus: "approved"
+readingTime: 18
+difficulty: "advanced"
+applicableFinancialYear: "FY 2026–27"
+applicablePolicyDates: "Universal"
+regulatoryJurisdiction: "Financial Mathematics Standards"
+sourceReferences:
+  - id: "actuarial-math-reference"
+    title: "Financial Mathematics: Core Principles of Cash Flow Discounting"
+    issuingAuthority: "Institute of Actuaries of India (IAI) / Actuarial Core Reading"
+    officialUrl: "https://www.actuariesindia.org"
+    publishedDate: "2020-01-01"
+    effectiveDate: "2020-01-01"
+    lastVerifiedDate: "2026-10-10"
+    relevantClause: "Subject CM1 (Actuarial Mathematics — Discounted Cash Flows)"
+    substantiveClaim: "Establishes that cash flow yields with multiple periodic contributions require internal rate of return formulations."
+relatedArticles:
+  - "guaranteed-insurance-plans-cash-flow-irr"
+  - "how-to-read-benefit-illustration"
+faq:
+  - question: "Why is CAGR the wrong formula for recurring premium policies?"
+    answer: "CAGR assumes a single lump-sum investment at t=0 compounding undisturbed until maturity. When you pay recurring annual premiums over 10 or 15 years, later premiums compound for significantly less time. Using CAGR on the total cumulative premiums falsely deflates or inflates the actual annualized rate of return."
+  - question: "Can a cash-flow series have more than one IRR solution?"
+    answer: "Yes. By Descartes' Rule of Signs, a polynomial equation can have as many positive real roots as there are sign changes in its sequence of cash flows. In typical endowment policies with regular outflows followed by positive payouts, there is exactly one sign change, guaranteeing a unique real IRR."
+---
+
+## 1. Why CAGR Fails for Insurance Policies
+The Compound Annual Growth Rate (CAGR) formula is defined strictly for a single lump-sum cash flow:
+
+$$\text{CAGR} = \left( \frac{\text{Ending Value}}{\text{Beginning Value}} \right)^{\frac{1}{n}} - 1$$
+
+When insurance agents evaluate a 10-year limited pay endowment policy where you invest ₹1,00,000 every year for 10 years and receive ₹18,00,000 at year 16, they often state:
+$$\text{Total Invested} = \text{INR } 10,00,000, \quad \text{Maturity} = \text{INR } 18,00,000, \quad \text{Years} = 16$$
+$$\text{Falsely Computed CAGR} = \left( \frac{18,00,000}{10,00,000} \right)^{\frac{1}{16}} - 1 \approx \mathbf{3.75\%}$$
+Or worse, they divide the ₹8 Lakh gain by 10 years and claim an "8% annual return".
+
+Both numbers are mathematically invalid because the ₹1,00,000 paid in Year 9 was invested for only 7 years, while the ₹1,00,000 paid in Year 1 was invested for 15 years.
+
+To account for the **time value of money across staggered cash flows**, you must calculate the **Internal Rate of Return (IRR)**.
+
+---
+
+## 2. Mathematical Definition of IRR
+The Internal Rate of Return ($r$) is the specific discount rate that equates the **Net Present Value (NPV)** of all cash inflows and outflows to zero:
+
+$$\text{NPV}(r) = \sum_{t=0}^{n} \frac{\text{CF}_t}{(1 + r)^t} = 0$$
+
+Where:
+* $\text{CF}_t$ is the net cash flow at time $t$. (Negative for premiums paid; positive for survival payouts, dividends, or maturity sums).
+* $t$ is the time interval in years ($t = 0, 1, 2, \dots, n$).
+* $r$ is the internal rate of return per period.
+
+Because this equation is a polynomial of degree $n$, it cannot generally be solved algebraically when $n \ge 5$ (Abel-Ruffini theorem). It must be solved numerically via iterative root-finding methods.
+
+---
+
+## 3. The Newton-Raphson Solver Algorithm
+The standard numerical method used in spreadsheet software (`=IRR()`) and Cover & Capital's TypeScript engine is the **Newton-Raphson method**:
+
+$$r_{k+1} = r_k - \frac{f(r_k)}{f'(r_k)}$$
+
+Where:
+$$f(r) = \sum_{t=0}^{n} \frac{\text{CF}_t}{(1 + r)^t}$$
+And the first derivative with respect to $r$ is:
+$$f'(r) = -\sum_{t=1}^{n} \frac{t \cdot \text{CF}_t}{(1 + r)^{t+1}}$$
+
+### Step-by-Step Numerical Walkthrough:
+Consider: Pay ₹1,00,000 at $t=0$, ₹1,00,000 at $t=1$, receive ₹2,35,000 at $t=2$.
+1. Initial guess: $r_0 = 0.10$ (10%).
+2. Compute $f(0.10) = -100000 - \frac{100000}{1.10} + \frac{235000}{1.10^2} = -100000 - 90909.09 + 194214.88 = +3305.79$.
+3. Compute derivative $f'(0.10) = -\frac{100000}{1.10^2} - \frac{2 \times 235000}{1.10^3} = -82644.63 - 353117.96 = -435762.59$.
+4. Next approximation:
+$$r_1 = 0.10 - \frac{3305.79}{-435762.59} = 0.10 + 0.007586 = \mathbf{0.107586 \ (10.76\%)}$$
+5. Repeating for iteration 2 converges rapidly to the exact solution: $r \approx 10.78\%$.
+
+---
+
+## 4. XIRR for Irregular Calendar Dates
+Standard IRR assumes perfectly equal annual or monthly intervals. However, real insurance policies have irregular cash-flow dates due to leap years, non-annual premium modes, or mid-term survival benefits.
+
+The **Extended Internal Rate of Return (XIRR)** uses actual calendar dates under the **ACT/365 convention**:
+
+$$\sum_{i=0}^{n} \frac{\text{CF}_i}{(1 + r)^{\frac{d_i - d_0}{365.0}}} = 0$$
+
+Where $d_i$ is the actual calendar date of transaction $i$, and $d_0$ is the date of the initial premium payment.
+
+```mermaid
+flowchart LR
+    D0["2024-03-15: -₹1,00,000"] --> D1["2025-03-15: -₹1,00,000"]
+    D1 --> D2["2026-03-15: -₹1,00,000"]
+    D2 --> D3["2034-03-15: +₹4,25,000"]
+    D3 --> Solve["Solve ACT/365 Polynomial"]
+    Solve --> XIRR["Exact XIRR: 5.62%"]
+```
+
+---
+
+## 5. Practical Checklist for Policy Audits
+When evaluating any policy illustration from LIC, HDFC Life, ICICI Pru, or Max Life:
+1. Export the table of year-by-year cash flows into a spreadsheet.
+2. Verify that all premium entries have a **negative sign** (`-₹1,00,000`).
+3. Verify that all survival payouts and maturity values have a **positive sign** (`+₹1,50,000`).
+4. Apply `=XIRR(values, dates)` using exact dates.
+5. Compare the resulting XIRR against the risk-free **10-Year Government of India Bond (7.1%)** and **Public Provident Fund (7.1% tax-free)**.

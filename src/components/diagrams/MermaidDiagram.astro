@@ -1,0 +1,63 @@
+---
+interface Props {
+  chart: string;
+  title?: string;
+  caption?: string;
+  accessibleDescription?: string;
+}
+
+const {
+  chart,
+  title = 'Conceptual Workflow Diagram',
+  caption,
+  accessibleDescription = 'Process flow diagram illustrating decision points and sequential financial steps.',
+} = Astro.props;
+
+const diagramId = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<figure class="my-8 bg-[#FAF9F5] border border-[#E5E3D8] rounded-xl p-4 sm:p-6 overflow-hidden">
+  {title && (
+    <div class="border-b border-[#E5E3D8] pb-3 mb-4 flex items-center justify-between">
+      <figcaption class="text-sm font-semibold font-serif text-[#0F172A]">{title}</figcaption>
+      <span class="text-xs uppercase font-medium px-2 py-0.5 rounded bg-[#F1EFEA] text-[#64748B]">Process Chart</span>
+    </div>
+  )}
+
+  <!-- Accessible screen reader alternative -->
+  <div class="sr-only">
+    <h4>Accessible Diagram Summary: {title}</h4>
+    <p>{accessibleDescription}</p>
+    <pre>{chart}</pre>
+  </div>
+
+  <!-- Interactive Diagram Viewport -->
+  <div class="overflow-x-auto flex justify-center py-2" aria-hidden="true">
+    <div id={diagramId} class="mermaid text-center max-w-full">
+      {chart}
+    </div>
+  </div>
+
+  {caption && (
+    <p class="text-xs text-[#64748B] text-center mt-3 italic">{caption}</p>
+  )}
+</figure>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'neutral',
+    themeVariables: {
+      primaryColor: '#E6F3EF',
+      primaryTextColor: '#0F172A',
+      primaryBorderColor: '#0D5C46',
+      lineColor: '#475569',
+      secondaryColor: '#FAF9F5',
+      tertiaryColor: '#FFFFFF',
+    },
+    securityLevel: 'loose',
+    fontFamily: 'Inter, sans-serif',
+  });
+</script>

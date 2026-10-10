@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { author } from '../../data/author';
+
+interface SourceRef {
+  id: string;
+  title: string;
+  issuingAuthority: string;
+  referenceNumber?: string;
+  officialUrl: string;
+  publishedDate?: string;
+  effectiveDate?: string;
+  lastVerifiedDate?: string;
+  relevantClause?: string;
+  substantiveClaim?: string;
+  status?: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  summary: string;
+  category: string;
+  tags?: string[];
+  publishedAt: string;
+  updatedAt?: string;
+  reviewedAt?: string;
+  readingTime?: number;
+  difficulty?: string;
+  applicableFinancialYear?: string;
+  applicablePolicyDates?: string;
+  regulatoryJurisdiction?: string;
+  sourceReferences?: SourceRef[];
+  relatedArticles?: string[];
+  faq?: FAQItem[];
+  headings?: Array<{ depth: number; slug: string; text: string }>;
+}
+
+const {
+  title,
+  description,
+  summary,
+  category,
+  tags = [],
+  publishedAt,
+  updatedAt,
+  reviewedAt,
+  readingTime = 10,
+  difficulty = 'intermediate',
+  applicableFinancialYear,
+  applicablePolicyDates,
+  regulatoryJurisdiction = 'India (IRDAI & Income Tax Department)',
+  sourceReferences = [],
+  relatedArticles = [],
+  faq = [],
+  headings = [],
+} = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  'foundations': 'Insurance Fundamentals',
+  'term-insurance': 'Term Life Insurance',
+  'ulip': 'ULIPs & Market-Linked',
+  'guaranteed-savings': 'Guaranteed & Traditional Plans',
+  'riders': 'Riders & Supplementary Benefits',
+  'claims-and-servicing': 'Claims, Exclusions & Servicing',
+  'taxation': 'Indian Insurance Taxation',
+  'comparisons': 'Investment Comparisons',
+  'calculations': 'Financial Mathematics',
+};
+
+const categoryHref: Record<string, string> = {
+  'foundations': '/cover-and-capital-india/insurance/',
+  'term-insurance': '/cover-and-capital-india/insurance/term/',
+  'ulip': '/cover-and-capital-india/insurance/ulip/',
+  'guaranteed-savings': '/cover-and-capital-india/insurance/guaranteed/',
+  'riders': '/cover-and-capital-india/insurance/riders/',
+  'claims-and-servicing': '/cover-and-capital-india/insurance/claims/',
+  'taxation': '/cover-and-capital-india/taxation/',
+  'comparisons': '/cover-and-capital-india/comparisons/',
+  'calculations': '/cover-and-capital-india/calculators/',
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  publishedDate={publishedAt}
+  updatedDate={updatedAt || reviewedAt}
+  ogType="article"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb" class="text-xs text-[#64748B] mb-6 flex items-center space-x-2">
+      <a href="/cover-and-capital-india/" class="hover:text-[#0D5C46]">Home</a>
+      <span>/</span>
+      <a href={categoryHref[category] || '/cover-and-capital-india/insurance/'} class="hover:text-[#0D5C46]">
+        {categoryLabels[category] || category}
+      </a>
+      <span>/</span>
+      <span class="text-[#0F172A] font-medium truncate max-w-xs sm:max-w-md">{title}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <!-- Main Content Column -->
+      <article class="lg:col-span-8 space-y-8">
+        <!-- Article Header -->
+        <header class="border-b border-[#E5E3D8] pb-8 space-y-4">
+          <div class="flex items-center gap-2 flex-wrap text-xs">
+            <span class="font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46]">
+              {categoryLabels[category] || category}
+            </span>
+            {applicableFinancialYear && (
+              <span class="font-semibold px-2 py-0.5 rounded bg-[#FEF3C7] text-[#92400E]">
+                {applicableFinancialYear}
+              </span>
+            )}
+            <span class="text-[#64748B]">&bull;</span>
+            <span class="text-[#64748B]">{readingTime} min read</span>
+            <span class="text-[#64748B]">&bull;</span>
+            <span class="capitalize px-1.5 py-0.5 rounded bg-[#F1EFEA] text-[#475569]">
+              {difficulty}
+            </span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[#0F172A] leading-tight tracking-tight">
+            {title}
+          </h1>
+
+          <!-- Executive Summary Callout -->
+          <div class="bg-[#FAF9F5] border-l-4 border-[#0D5C46] p-4 sm:p-5 rounded-r-md">
+            <strong class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46] block mb-1">
+              Executive Research Summary
+            </strong>
+            <p class="text-sm sm:text-base text-[#1E293B] leading-relaxed">
+              {summary}
+            </p>
+          </div>
+
+          <!-- Editorial Provenance Metadata -->
+          <div class="flex flex-wrap items-center justify-between text-xs text-[#64748B] gap-4 pt-2">
+            <div class="flex items-center gap-2">
+              <span class="font-medium text-[#0F172A]">By {author.name}</span>
+              <span>&bull;</span>
+              <span>Published: {publishedAt}</span>
+              {reviewedAt && (
+                <>
+                  <span>&bull;</span>
+                  <span>Fact-Checked: <strong class="text-[#0D5C46]">{reviewedAt}</strong></span>
+                </>
+              )}
+            </div>
+            <div>
+              <span class="bg-[#F8FAFC] border border-[#E2E8F0] px-2 py-1 rounded text-[#475569]">
+                Jurisdiction: {regulatoryJurisdiction}
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Prose Body -->
+        <div class="editorial-prose">
+          <slot />
+        </div>
+
+        <!-- Official Sources & Citations Table -->
+        {sourceReferences && sourceReferences.length > 0 && (
+          <section class="mt-12 pt-8 border-t border-[#E5E3D8]" id="sources">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold font-serif text-[#0F172A] flex items-center gap-2">
+                <span>📚</span> Primary Legal & Regulatory Sources
+              </h3>
+              <span class="text-xs text-[#64748B]">{sourceReferences.length} Authoritative Citations</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs border border-[#E5E3D8] rounded-md">
+                <thead>
+                  <tr class="bg-[#F1EFEA] text-[#0F172A]">
+                    <th class="p-2.5 text-left border-b border-[#D1CEBE]">Authority / Act</th>
+                    <th class="p-2.5 text-left border-b border-[#D1CEBE]">Title / Circular Reference</th>
+                    <th class="p-2.5 text-left border-b border-[#D1CEBE]">Relevant Clause</th>
+                    <th class="p-2.5 text-left border-b border-[#D1CEBE]">Verified Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sourceReferences.map((s) => (
+                    <tr class="border-b border-[#E5E3D8] hover:bg-[#FAF9F5]">
+                      <td class="p-2.5 font-semibold text-[#0F172A]">{s.issuingAuthority}</td>
+                      <td class="p-2.5">
+                        <div class="font-medium text-[#1E293B]">{s.title}</div>
+                        {s.referenceNumber && <div class="text-[#64748B] font-mono text-[11px]">{s.referenceNumber}</div>}
+                      </td>
+                      <td class="p-2.5 text-[#475569]">{s.relevantClause || 'General'}</td>
+                      <td class="p-2.5">
+                        <a
+                          href={s.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-[#0D5C46] hover:underline font-semibold"
+                        >
+                          View Official &rarr;
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        <!-- FAQ Section -->
+        {faq && faq.length > 0 && (
+          <section class="mt-10 pt-6 border-t border-[#E5E3D8]" id="faq">
+            <h3 class="text-lg font-bold font-serif text-[#0F172A] mb-4">
+              Frequently Asked Questions
+            </h3>
+            <div class="space-y-4">
+              {faq.map((item) => (
+                <div class="border border-[#E5E3D8] rounded-lg p-4 bg-white">
+                  <h4 class="text-sm font-semibold text-[#0F172A] mb-1">{item.question}</h4>
+                  <p class="text-xs sm:text-sm text-[#475569] leading-relaxed">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Author Profile Box -->
+        <div class="bg-[#F4F3EE] border border-[#E5E3D8] rounded-xl p-6 mt-12 flex flex-col sm:flex-row gap-5 items-start">
+          <div class="w-14 h-14 rounded-full bg-[#0D5C46] text-white flex items-center justify-center font-bold text-xl shrink-0 font-serif">
+            CS
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-baseline justify-between flex-wrap gap-2">
+              <h4 class="text-base font-bold text-[#0F172A]">{author.name}</h4>
+              <span class="text-xs text-[#0D5C46] font-semibold">{author.role}</span>
+            </div>
+            <p class="text-xs text-[#475569] leading-relaxed">
+              {author.bio}
+            </p>
+            <div class="flex items-center gap-3 text-xs pt-1">
+              <a href="/cover-and-capital-india/about/" class="text-[#0D5C46] font-semibold hover:underline">
+                Full Profile & Methodology &rarr;
+              </a>
+              <span class="text-[#CBD5E1]">&bull;</span>
+              <a href={author.socials.github} target="_blank" rel="noopener noreferrer" class="text-[#64748B] hover:text-[#0F172A]">GitHub</a>
+              <a href={author.socials.linkedin} target="_blank" rel="noopener noreferrer" class="text-[#64748B] hover:text-[#0F172A]">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sidebar Column (TOC, Calculators, Disclaimers) -->
+      <aside class="lg:col-span-4 space-y-6">
+        <!-- Sticky Table of Contents -->
+        {headings && headings.length > 0 && (
+          <div class="bg-white border border-[#E5E3D8] rounded-xl p-5 sticky top-24 shadow-2xs">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E5E3D8] pb-2 mb-3">
+              Table of Contents
+            </h4>
+            <nav class="space-y-1 text-xs" aria-label="Table of Contents">
+              {headings
+                .filter((h) => h.depth === 2 || h.depth === 3)
+                .map((h) => (
+                  <a
+                    href={`#${h.slug}`}
+                    class={`block py-1 text-[#475569] hover:text-[#0D5C46] hover:underline ${
+                      h.depth === 3 ? 'pl-3 text-[11px] text-[#64748B]' : 'font-medium'
+                    }`}
+                  >
+                    {h.text}
+                  </a>
+                ))}
+            </nav>
+          </div>
+        )}
+
+        <!-- Quick Calculator Widget -->
+        <div class="bg-[#FAF9F5] border border-[#D1CEBE] rounded-xl p-5">
+          <span class="text-xs uppercase font-semibold text-[#0D5C46] tracking-wider block mb-1">Interactive Tools</span>
+          <h4 class="text-sm font-bold font-serif text-[#0F172A] mb-2">Estimate Your Life Cover</h4>
+          <p class="text-xs text-[#64748B] mb-4">
+            Test your household living expense replacement and liability coverage with our client-side estimator.
+          </p>
+          <a
+            href="/cover-and-capital-india/calculators/"
+            class="block text-center px-4 py-2 bg-[#0D5C46] text-white rounded text-xs font-semibold hover:bg-[#083E2F] transition-colors"
+          >
+            Launch Financial Calculators &rarr;
+          </a>
+        </div>
+
+        <!-- Strict Non-Advisory Notice -->
+        <div class="bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4 text-xs text-[#92400E] space-y-1">
+          <strong class="font-semibold block text-[#B45309]">Educational Notice:</strong>
+          <p>
+            This article is an independent quantitative and statutory breakdown. It is not an invitation to purchase, surrender, or modify any financial contract. Verify all clauses against your insurer's official policy bond.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

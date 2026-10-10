@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { author } from '../data/author';
+---
+
+<BaseLayout
+  title={`About Chirag Singhal & Cover & Capital India`}
+  description="Learn about Chirag Singhal, founder of Cover & Capital India. Background in computer science, software engineering at TCS, research philosophy, and independent educational mission."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="space-y-8">
+      <!-- Header -->
+      <div class="border-b border-[#E5E3D8] pb-8">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Author & Editorial Identity</span>
+        <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+          About Chirag Singhal & The Cover & Capital Project
+        </h1>
+        <p class="text-base text-[#475569] mt-3 leading-relaxed">
+          An independent, research-driven financial education project founded by an Indian software engineer to demystify insurance, taxation, and financial mathematics.
+        </p>
+      </div>
+
+      <!-- Author Profile Card -->
+      <div class="bg-white border border-[#E5E3D8] rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
+        <div class="w-20 h-20 rounded-full bg-[#0D5C46] text-white flex items-center justify-center font-bold text-3xl font-serif shrink-0">
+          CS
+        </div>
+        <div class="space-y-3">
+          <div>
+            <h2 class="text-xl font-bold text-[#0F172A]">{author.name}</h2>
+            <div class="text-xs text-[#0D5C46] font-semibold">{author.role}</div>
+            <div class="text-xs text-[#64748B] mt-0.5">{author.work} &bull; {author.education}</div>
+          </div>
+          <p class="text-sm text-[#334155] leading-relaxed">
+            {author.bio}
+          </p>
+          <div class="flex flex-wrap items-center gap-3 pt-2 text-xs">
+            <a href={author.socials.github} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#F1EFEA] hover:bg-[#E5E3D8] rounded text-[#0F172A] font-medium">GitHub</a>
+            <a href={author.socials.linkedin} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#F1EFEA] hover:bg-[#E5E3D8] rounded text-[#0F172A] font-medium">LinkedIn</a>
+            <a href={author.socials.twitter} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#F1EFEA] hover:bg-[#E5E3D8] rounded text-[#0F172A] font-medium">X (Twitter)</a>
+            <a href={author.socials.youtube} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#F1EFEA] hover:bg-[#E5E3D8] rounded text-[#0F172A] font-medium">YouTube</a>
+            <a href={author.socials.buyMeACoffee} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#92400E] rounded font-medium">Buy Me a Coffee</a>
+            <a href={`mailto:${author.contactEmail}`} class="px-3 py-1 bg-[#E6F3EF] hover:bg-[#D1EBE3] text-[#0D5C46] rounded font-medium">{author.contactEmail}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Narrative & Philosophy -->
+      <div class="editorial-prose space-y-6">
+        <h2>Why Cover & Capital India Exists</h2>
+        <p>
+          In India, the financial-services industry operates with massive informational asymmetry. Insurance policies—intended as sacred protection mechanisms for families—are overwhelmingly sold through bancassurance quotas and agency incentives as "savings products" or "tax-saving instruments".
+        </p>
+        <p>
+          As a software engineer trained to analyze complex architectures and evaluate edge cases, I wanted to understand financial products from first principles. How do insurance charges actually subtract units from your account? What is the true cash-flow IRR of a 25-year guaranteed income plan? How does the transition from the Income-tax Act, 1961 to the Income-tax Act, 2025 affect policyholders?
+        </p>
+        <p>
+          Cover & Capital India was built to answer these questions with verifiable primary evidence. Instead of sales brochures, we analyze the actual legal policy contracts filed with IRDAI, the Central Board of Direct Taxes (CBDT) circulars, and the governing statutes.
+        </p>
+
+        <h2>Professional Boundaries & Independence Disclosure</h2>
+        <div class="bg-[#FFFBEB] border-l-4 border-amber-500 p-4 rounded-r text-sm text-[#92400E]">
+          <strong>Clear Professional Disclosure:</strong><br />
+          Chirag Singhal is a computer science graduate and software engineer. He is <strong>NOT</strong> an insurance broker, corporate agent, actuary, registered investment adviser (SEBI RIA), chartered accountant, or legal practitioner. The author does not hold regulatory licenses from SEBI or IRDAI.
+        </div>
+        <p>
+          This website exists solely for consumer financial education, analytical research, and quantitative tool building. It does not provide personalized investment advice, underwriting recommendations, or legal counsel.
+        </p>
+
+        <h2>Editorial and Verification Standards</h2>
+        <ol>
+          <li><strong>Primary Authority First</strong>: Every legal or regulatory rule cites primary legislation (India Code), official Gazette notifications, CBDT circulars, or IRDAI master circulars.</li>
+          <li><strong>Contractual Distinction</strong>: We distinguish contractually guaranteed cash flows from non-guaranteed illustrative bonuses or projected fund returns.</li>
+          <li><strong>Transparent Mathematics</strong>: Every calculator runs client-side in open-source TypeScript with explicit equations and unit tests.</li>
+          <li><strong>Correction Protocol</strong>: If any statutory provision, circular citation, or formula contains an error, readers can email <a href={`mailto:${author.contactEmail}`} class="text-[#0D5C46] font-semibold">{author.contactEmail}</a> for prompt investigation and public rectification.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

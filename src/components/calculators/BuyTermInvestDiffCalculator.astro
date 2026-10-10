@@ -1,0 +1,190 @@
+---
+// Buy Term and Invest Difference (BTID) Calculator
+---
+
+<div class="bg-white border border-[#E5E3D8] rounded-xl p-6 sm:p-8 shadow-xs max-w-3xl mx-auto my-8">
+  <div class="border-b border-[#E5E3D8] pb-4 mb-6">
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <h3 class="text-xl sm:text-2xl font-bold font-serif text-[#0F172A]">
+        Buy Term & Invest the Difference (BTID) Analyzer
+      </h3>
+      <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46]">
+        Comparative Cash-Flow Model
+      </span>
+    </div>
+    <p class="text-sm text-[#64748B] mt-1">
+      Simulates the mathematical divergence between bundling insurance with savings (Endowment / ULIP) versus separating pure term insurance from direct market investments.
+    </p>
+  </div>
+
+  <form id="btid-form" class="space-y-6" onsubmit="return false;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div>
+        <label for="bundled-premium" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Proposed Bundled Annual Premium (₹)
+        </label>
+        <input
+          type="number"
+          id="bundled-premium"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="100000"
+          min="10000"
+          step="5000"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Annual premium for Endowment or ULIP</span>
+      </div>
+
+      <div>
+        <label for="pure-term-premium" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Pure Term Insurance Annual Premium (₹)
+        </label>
+        <input
+          type="number"
+          id="pure-term-premium"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="14000"
+          min="3000"
+          step="1000"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Typical quote for ₹1 Crore pure cover (age 28–32)</span>
+      </div>
+
+      <div>
+        <label for="investment-horizon" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Duration / Policy Term (Years)
+        </label>
+        <input
+          type="number"
+          id="investment-horizon"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="20"
+          min="5"
+          max="35"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="bundled-yield" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Bundled Policy Expected IRR (%)
+        </label>
+        <input
+          type="number"
+          id="bundled-yield"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="5.5"
+          min="1"
+          max="12"
+          step="0.1"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Traditional endowment plans historically yield 5%–6%</span>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="direct-investment-cagr" class="block text-xs font-semibold text-[#334155] uppercase tracking-wider mb-1">
+          Direct Mutual Fund Portfolio Assumed CAGR (%)
+        </label>
+        <input
+          type="number"
+          id="direct-investment-cagr"
+          class="w-full px-3 py-2 border border-[#CBD5E1] rounded-md focus:ring-2 focus:ring-[#0D5C46] focus:border-[#0D5C46] text-sm"
+          value="11.0"
+          min="5"
+          max="16"
+          step="0.5"
+          required
+        />
+        <span class="text-xs text-[#94A3B8]">Long-term equity / balanced portfolio benchmark</span>
+      </div>
+    </div>
+  </form>
+
+  <!-- Output Comparison Cards -->
+  <div class="mt-8 pt-6 border-t border-[#E5E3D8] space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-[#FAF9F5] border border-[#D1CEBE] rounded-lg p-5">
+        <span class="text-xs font-semibold text-[#64748B] uppercase">Strategy 1: Bundled Savings Policy</span>
+        <div id="bundled-corpus-display" class="text-2xl font-bold font-serif text-[#0F172A] mt-2">
+          ₹36.78 Lakh
+        </div>
+        <p class="text-xs text-[#64748B] mt-2">
+          Total Premiums Paid: <strong id="bundled-total-paid">₹20.00 Lakh</strong><br/>
+          Life Cover During Term: <strong>₹10 Lakh to ₹15 Lakh</strong> (Typically 10x-15x premium)
+        </p>
+      </div>
+
+      <div class="bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg p-5">
+        <span class="text-xs font-semibold text-[#166534] uppercase">Strategy 2: Term Plan + Invest Difference</span>
+        <div id="btid-corpus-display" class="text-2xl font-bold font-serif text-[#0D5C46] mt-2">
+          ₹62.15 Lakh
+        </div>
+        <p class="text-xs text-[#166534] mt-2">
+          Annual Investment: <strong id="diff-invested">₹86,000/yr</strong><br/>
+          Life Cover During Term: <strong>₹1.00 Crore</strong> (High protection shield)
+        </p>
+      </div>
+    </div>
+
+    <!-- Difference Highlight -->
+    <div class="bg-[#E6F3EF] border-l-4 border-[#0D5C46] p-4 rounded-r-md">
+      <div class="text-sm font-semibold text-[#0D5C46]">
+        Net Additional Wealth Generated by Strategy 2: <span id="btid-difference-display" class="font-bold">₹25.37 Lakh</span>
+      </div>
+      <p class="text-xs text-[#334155] mt-1">
+        By decoupling protection from accumulation, the family secures <strong>7x–10x higher life cover</strong> for dependants while building a dramatically larger wealth corpus due to compounding without mortality drag.
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-6 text-xs text-[#64748B] italic">
+    * Note: Mutual fund returns are subject to market volatility and capital gains taxes (e.g. 12.5% LTCG on equity above ₹1.25 Lakh under current law). Traditional policy maturity may be tax-exempt under Schedule II(2) if annual premium is under ₹5 Lakh, but lower returns over decades create massive opportunity costs.
+  </div>
+</div>
+
+<script>
+  function formatINRCompact(num: number): string {
+    const abs = Math.abs(num);
+    const isNeg = num < 0;
+    if (abs >= 10000000) return `${isNeg ? '-' : ''}₹${(abs / 10000000).toFixed(2)} Crore`;
+    if (abs >= 100000) return `${isNeg ? '-' : ''}₹${(abs / 100000).toFixed(2)} Lakh`;
+    return `${isNeg ? '-' : ''}₹${Math.round(abs).toLocaleString('en-IN')}`;
+  }
+
+  function computeBTID() {
+    const bundledPrem = parseFloat((document.getElementById('bundled-premium') as HTMLInputElement)?.value || '100000');
+    const termPrem = parseFloat((document.getElementById('pure-term-premium') as HTMLInputElement)?.value || '14000');
+    const years = parseFloat((document.getElementById('investment-horizon') as HTMLInputElement)?.value || '20');
+    const bundledRate = (parseFloat((document.getElementById('bundled-yield') as HTMLInputElement)?.value || '5.5')) / 100;
+    const directRate = (parseFloat((document.getElementById('direct-investment-cagr') as HTMLInputElement)?.value || '11')) / 100;
+
+    const diffToInvest = Math.max(0, bundledPrem - termPrem);
+
+    // FV Annuity Due: PMT * (( (1+r)^n - 1 ) / r) * (1+r)
+    function fvAnnuityDue(pmt: number, r: number, n: number) {
+      if (r <= 0) return pmt * n;
+      return pmt * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    }
+
+    const bundledCorpus = fvAnnuityDue(bundledPrem, bundledRate, years);
+    const btidCorpus = fvAnnuityDue(diffToInvest, directRate, years);
+    const diff = btidCorpus - bundledCorpus;
+
+    const bundledDisplay = document.getElementById('bundled-corpus-display');
+    const bundledTotalPaid = document.getElementById('bundled-total-paid');
+    const btidDisplay = document.getElementById('btid-corpus-display');
+    const diffInvested = document.getElementById('diff-invested');
+    const diffDisplay = document.getElementById('btid-difference-display');
+
+    if (bundledDisplay) bundledDisplay.textContent = formatINRCompact(bundledCorpus);
+    if (bundledTotalPaid) bundledTotalPaid.textContent = formatINRCompact(bundledPrem * years);
+    if (btidDisplay) btidDisplay.textContent = formatINRCompact(btidCorpus);
+    if (diffInvested) diffInvested.textContent = `₹${Math.round(diffToInvest).toLocaleString('en-IN')}/yr`;
+    if (diffDisplay) diffDisplay.textContent = formatINRCompact(diff);
+  }
+
+  document.getElementById('btid-form')?.addEventListener('input', computeBTID);
+  computeBTID();
+</script>

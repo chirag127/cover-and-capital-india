@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { officialSources } from '../data/sources/official';
+---
+
+<BaseLayout
+  title="Statutory & Regulatory Source Library | Cover & Capital India"
+  description="Centralized repository of verified Indian statutes, CBDT circulars, IRDAI master regulations, and court rulings referenced across Cover & Capital India."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="border-b border-[#E5E3D8] pb-8 mb-12">
+      <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Evidence & Provenance</span>
+      <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+        Statutory & Regulatory Source Library
+      </h1>
+      <p class="text-base text-[#475569] mt-3 max-w-3xl leading-relaxed">
+        Every material claim on Cover & Capital India is grounded in primary authority. We reject model hallucinations, broker sales pitches, and unverified summaries.
+      </p>
+    </div>
+
+    <!-- Sources Grid -->
+    <div class="space-y-6">
+      {officialSources.map((source) => (
+        <div class="bg-white border border-[#E5E3D8] rounded-xl p-6 sm:p-8 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#F1EFEA] pb-3">
+            <div>
+              <span class="text-xs font-semibold uppercase px-2 py-0.5 rounded bg-[#E6F3EF] text-[#0D5C46] mr-2">
+                {source.category}
+              </span>
+              <h2 class="text-xl font-bold font-serif text-[#0F172A] inline">{source.title}</h2>
+            </div>
+            <span class="text-xs text-[#64748B] shrink-0">
+              Verified: <strong class="text-[#0D5C46]">{source.lastVerifiedDate}</strong>
+            </span>
+          </div>
+
+          <div class="text-xs text-[#475569] space-y-1">
+            <div><strong>Issuing Authority:</strong> {source.issuingAuthority}</div>
+            {source.referenceNumber && <div><strong>Official Reference:</strong> <code class="font-mono bg-[#FAF9F5] px-1 py-0.5 rounded">{source.referenceNumber}</code></div>}
+            <div><strong>Statutory Effective Date:</strong> {source.effectiveDate}</div>
+          </div>
+
+          <p class="text-sm text-[#334155] leading-relaxed">
+            {source.summary}
+          </p>
+
+          <div class="bg-[#FAF9F5] border border-[#E5E3D8] rounded p-3 text-xs text-[#475569]">
+            <strong class="text-[#0F172A] block mb-0.5">Substantive Sections / Clauses Cited:</strong>
+            {source.substantiveClauses}
+          </div>
+
+          <div class="pt-2">
+            <a
+              href={source.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0D5C46] hover:underline"
+            >
+              <span>Access Official Government / Regulator Portal</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

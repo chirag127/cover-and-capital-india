@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { author } from '../data/author';
+---
+
+<BaseLayout
+  title="Editorial Standards & Fact-Checking Policy | Cover & Capital India"
+  description="The editorial guidelines, citation ethics, mathematical audit rules, and independence standards that govern all research published on Cover & Capital India."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="space-y-8">
+      <div class="border-b border-[#E5E3D8] pb-6">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#0D5C46]">Editorial Integrity</span>
+        <h1 class="text-3xl sm:text-4xl font-bold font-serif text-[#0F172A] mt-2">
+          Editorial Standards & Fact-Checking Policy
+        </h1>
+        <p class="text-base text-[#475569] mt-3 leading-relaxed">
+          Cover & Capital India adheres to strict evidence-based editorial practices. We reject promotional hype, commercial brand rankings, and unverified summaries.
+        </p>
+      </div>
+
+      <div class="editorial-prose space-y-6">
+        <h2>1. The Evidence-First Principle</h2>
+        <p>
+          Before any article, policy analysis, or tax guide is published, we conduct primary source research. We consult binding statutes (India Code), circulars from the Central Board of Direct Taxes (CBDT), master regulations from the Insurance Regulatory and Development Authority of India (IRDAI), and actual insurer policy wordings.
+        </p>
+        <p>
+          If information is ambiguous, disputed, or legally unsettled, we state the limits of current knowledge openly and identify the exact documentation required to resolve it.
+        </p>
+
+        <h2>2. Separation of Content and Commercial Incentives</h2>
+        <p>
+          Cover & Capital India operates with zero commercial influence:
+        </p>
+        <ul>
+          <li>We accept <strong>no commissions, referral fees, or lead-generation payouts</strong> from insurance companies, aggregators, or mutual fund distributors.</li>
+          <li>We do not publish "Top 10 Insurer" lists based on commercial sponsorships.</li>
+          <li>We do not sell user leads or contact details to telemarketers or brokers.</li>
+        </ul>
+
+        <h2>3. Mathematical Rigor & Code Validation</h2>
+        <p>
+          Financial return calculations must reflect actual cash-flow timing:
+        </p>
+        <ul>
+          <li>We never use CAGR to approximate staggered multi-period cash flows where Internal Rate of Return (IRR) or Extended IRR (XIRR) is mathematically required.</li>
+          <li>All calculator algorithms are open-source, written in strict TypeScript, and tested with automated unit test suites in Vitest.</li>
+          <li>Every worked example discloses its assumptions, inflation deflators, and tax brackets.</li>
+        </ul>
+
+        <h2>4. Corrections & Errata Policy</h2>
+        <p>
+          Accuracy is paramount. When factual errors, outdated circular citations, or formula mistakes occur, we correct them transparently:
+        </p>
+        <p>
+          Readers who discover an inaccuracy are invited to report it directly to <a href={`mailto:${author.contactEmail}`} class="text-[#0D5C46] font-semibold">{author.contactEmail}</a>. Corrections are investigated within 48 hours and documented in the public article revision history.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
