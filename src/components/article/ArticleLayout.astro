@@ -306,3 +306,70 @@ const categoryHref: Record<string, string> = {
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  async function initMermaid() {
+    const blocks = document.querySelectorAll('pre[data-language="mermaid"], pre.astro-code[data-language="mermaid"]');
+    if (!blocks.length) return;
+
+    try {
+      const mermaidModule = await import('mermaid');
+      const mermaid = mermaidModule.default;
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'neutral',
+        themeVariables: {
+          primaryColor: '#E6F3EF',
+          primaryTextColor: '#0F172A',
+          primaryBorderColor: '#0D5C46',
+          lineColor: '#334155',
+          secondaryColor: '#FAF9F5',
+          tertiaryColor: '#FFFFFF',
+          fontFamily: 'Inter, system-ui, sans-serif',
+        },
+        securityLevel: 'loose',
+      });
+
+      for (let i = 0; i < blocks.length; i++) {
+        const pre = blocks[i] as HTMLElement;
+        if (pre.dataset.mermaidProcessed === 'true') continue;
+        pre.dataset.mermaidProcessed = 'true';
+
+        const codeText = pre.textContent || '';
+        if (!codeText.trim()) continue;
+
+        const container = document.createElement('figure');
+        container.className = 'my-8 bg-[#FAF9F5] border border-[#E5E3D8] rounded-xl p-4 sm:p-6 overflow-hidden shadow-2xs text-center';
+
+        const viewport = document.createElement('div');
+        viewport.className = 'overflow-x-auto flex justify-center py-2';
+        const inner = document.createElement('div');
+        const diagramId = `mermaid-render-${Date.now()}-${i}`;
+        inner.id = diagramId;
+        inner.className = 'mermaid text-center max-w-full';
+        viewport.appendChild(inner);
+        container.appendChild(viewport);
+
+        pre.parentNode?.insertBefore(container, pre);
+        pre.style.display = 'none';
+
+        try {
+          const { svg } = await mermaid.render(`mermaid-svg-${i}-${Date.now().toString(36)}`, codeText.trim());
+          inner.innerHTML = svg;
+        } catch (err) {
+          console.warn('Mermaid rendering fallback for block ' + i + ':', err);
+          pre.style.display = '';
+          container.remove();
+        }
+      }
+    } catch (e) {
+      console.error('Failed to initialize mermaid:', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMermaid);
+  } else {
+    initMermaid();
+  }
+</script>
