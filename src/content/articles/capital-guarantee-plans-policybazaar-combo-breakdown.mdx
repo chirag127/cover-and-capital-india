@@ -76,12 +76,12 @@ Instead, the aggregator sets up a **two-policy combo execution**:
 
 ```mermaid
 flowchart TD
-    Investor["Investor Annual Outlay: INR 1,00,000/yr"] --> Splitter["Aggregator Allocation Engine"]
-    Splitter -->|INR 58,000/yr (58%)| LegA["Leg A: Non-Par Guaranteed Savings Policy"]
-    Splitter -->|INR 42,000/yr (42%)| LegB["Leg B: Equity Unit-Linked Insurance Plan (ULIP)"]
+    Investor["Investor Annual Outlay: INR 1,00,000 per year"] --> Splitter["Aggregator Allocation Engine"]
+    Splitter -->|58 Percent to Debt Leg| LegA["Leg A: Non-Par Guaranteed Savings Policy"]
+    Splitter -->|42 Percent to Equity Leg| LegB["Leg B: Equity Unit-Linked Insurance Plan (ULIP)"]
     
-    LegA --> OutA["Guarantees 100% of Total Premiums Paid (INR 10,00,000 at Year 10)<br/>Net IRR: ~5.6%"]
-    LegB --> OutB["Invested in Nifty 50 Equity Index Fund at NAV<br/>Deducts FMC (1.35%) + Mortality Charges"]
+    LegA --> OutA["Guarantees 100% of Total Premiums Paid<br/>INR 10,00,000 at Year 10 - Net IRR ~5.6%"]
+    LegB --> OutB["Invested in Nifty 50 Index Fund at NAV<br/>Deducts FMC 1.35% and Mortality Charges"]
     
     OutA --> Final["Terminal Payout: INR 10 Lakh Guaranteed + ULIP Fund Value"]
     OutB --> Final
@@ -172,14 +172,14 @@ flowchart TD
         C1["Annual Cost: INR 1,00,000"]
         C2["Life Cover: INR 10 Lakhs (Inadequate)"]
         C3["Lock-in: 5 Years Mandatory"]
-        C4["Terminal Wealth @ 10% Equity: INR 16.78 Lakhs"]
+        C4["Terminal Wealth at 10% Equity: INR 16.78 Lakhs"]
     end
     
     subgraph DIY["Direct Unbundled Strategy (DIY)"]
         D1["Annual Cost: INR 1,00,000"]
         D2["Life Cover: INR 1.50 Crores (Complete Shield)"]
         D3["Liquidity: High (Mutual Fund withdrawable anytime)"]
-        D4["Terminal Wealth @ 10% Equity: INR 19.45 Lakhs"]
+        D4["Terminal Wealth at 10% Equity: INR 19.45 Lakhs"]
     end
 ```
 

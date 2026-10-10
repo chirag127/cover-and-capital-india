@@ -79,11 +79,11 @@ flowchart TD
     Intimation --> LegalCheck{"Legal Title Verification"}
     
     LegalCheck --> MWPACheck{"Was Policy Executed Under MWPA Section 6?"}
-    MWPACheck -->|Yes| TrustPay["Proceeds Paid to MWPA Trustees<br/>100% Shielded from Creditors & Courts"]
+    MWPACheck -->|Yes| TrustPay["Proceeds Paid to MWPA Trustees<br/>100% Shielded from Creditors and Courts"]
     
     MWPACheck -->|No| Sec39Check{"Is Nominee a Beneficial Nominee (Spouse / Child / Parent)?"}
     Sec39Check -->|Yes| BenPay["Absolute Legal Title under Section 39(7)<br/>Legal heirs cannot challenge payout"]
-    Sec39Check -->|No (Sibling / Friend)| CollectorPay["Collector Nominee Status<br/>Holds funds as trustee; legal heirs can claim share"]
+    Sec39Check -->|No - Sibling or Friend| CollectorPay["Collector Nominee Status<br/>Holds funds as trustee; legal heirs can claim share"]
 ```
 
 ---

@@ -121,13 +121,13 @@ flowchart TD
     Receipt["Life Insurance Payout Received"] --> DeathCheck{"Is it a Death Benefit?"}
     
     DeathCheck -->|Yes| Free["100% Tax-Free under Schedule II(2)<br/>Zero Cap - Zero Tax"]
-    DeathCheck -->|No (Maturity / Surrender)| RatioCheck{"Does Annual Premium exceed 10% of Sum Assured?"}
+    DeathCheck -->|No - Maturity or Surrender| RatioCheck{"Does Annual Premium exceed 10% of Sum Assured?"}
     
     RatioCheck -->|Yes| TaxableAll["100% Taxable as Income from Other Sources"]
     RatioCheck -->|No| TypeCheck{"Policy Type Audit"}
     
-    TypeCheck -->|ULIP issued on/after 1 Feb 2021| ULIPCheck{"Aggregate Annual Premium > INR 2,50,000?"}
-    TypeCheck -->|Non-ULIP issued on/after 1 Apr 2023| NonULIPCheck{"Aggregate Annual Premium > INR 5,00,000?"}
+    TypeCheck -->|ULIP issued on or after 1 Feb 2021| ULIPCheck{"Aggregate Annual Premium > INR 2,50,000?"}
+    TypeCheck -->|Non-ULIP issued on or after 1 Apr 2023| NonULIPCheck{"Aggregate Annual Premium > INR 5,00,000?"}
     
     ULIPCheck -->|No| TaxFreeULIP["100% Tax-Free under Schedule II(2)"]
     ULIPCheck -->|Yes| TaxableULIP["Taxed as Equity Capital Gains"]

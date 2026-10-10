@@ -89,8 +89,8 @@ flowchart TD
     Decision -->|No| Stop["CRITICAL STOP: Buy Pure Term Cover First!<br/>Do NOT touch existing policy until term policy is active"]
     Decision -->|Yes| Audit["Calculate Marginal IRR on Future Premiums"]
     
-    Audit -->|Marginal IRR < 6.0%| OptionA["Path A: Surrender or Make Paid-Up<br/>Redirect capital to Direct Index Funds / PPF"]
-    Audit -->|Near Maturity (2-3 Yrs left)| OptionB["Path B: Continue to Maturity<br/>Avoid surrender penalty; keep capital compounding"]
+    Audit -->|Marginal Return Below 6%| OptionA["Path A: Surrender or Make Paid-Up<br/>Redirect capital to Direct Index Funds / PPF"]
+    Audit -->|Near Maturity with 2-3 Years Left| OptionB["Path B: Continue to Maturity<br/>Avoid surrender penalty; keep capital compounding"]
     Audit -->|Moderate Horizon| OptionC["Path C: Convert to Paid-Up<br/>Stop paying premiums; let accrued capital mature"]
 ```
 
